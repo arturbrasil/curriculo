@@ -185,12 +185,12 @@
 				var hobbies = {
 					hobby1 : {
 						title : 'SuperServer II (Autenticador PPPoE)',
-						desc1 : 'Autenticação de 9000 assinantes em 1 servidor com trouhput de 3 gigabits por segundo',
+						desc1 : 'Autenticação de 9000 assinantes em 1 servidor com bandwidth de 3 gigabits por segundo',
 						desc2 : 'Mpd5, radius, perl, ng_graph, ng_netflow and FreeBsd e DualStack em Conclusão (Ipv6 and CGNAT).'
 					},
 					hobby2 : {
 						title : 'SuperServer I (Autenticador PPPoE)',
-						desc1 : 'Autenticação de 5500 assinantes em 1 servidor com trouhput de 1.6 gigabits por segundo',
+						desc1 : 'Autenticação de 5500 assinantes em 1 servidor com bandwidth de 1.6 gigabits por segundo',
 						desc2 : 'Mpd5, radius, perl, ng_graph, ng_netflow and FreeBsd.'
 					},
 					hobby3 : {
