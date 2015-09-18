@@ -236,7 +236,7 @@
 						email   : 'arturbrasil@gmail.com'
 					}
 				};
-				return contact;
+				// return contact;
 			},
 			getNavigation : function(){
 				var nav = {
