@@ -219,11 +219,11 @@
 			getContact : function() {
 				var contact = {
 					form : {
-						error   : 'Tente novamente.',
-						name    : 'Nome',
-						email   : 'Email',
-						message : 'Messagem',
-						send    : 'Enviar',
+						error   : 'Tente novamente. FORMULARIO DESATIVADO!!! FAVOR ENTRAR EM CONTATO POR OUTROS MEIOS ',
+						name    : 'Nome DESATIVADO',
+						email   : 'Email DESATIVADO',
+						message : 'Messagem DESATIVADO',
+						send    : 'Enviar DESATIVADO',
 						confirm : {
 							part1 : 'Coloque sua menssagem !',
 							part2 : 'TESte A',
