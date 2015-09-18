@@ -21,7 +21,7 @@
 		$scope.profile = myResumeData.getProfile();	
 		$scope.tagCloud = myResumeData.getTagCloud();
 		$scope.skills = myResumeData.getSkills();
-		$scope.hobbies = myResumeData.getHobbies();
+		$scope.projects = myResumeData.getProjects();
 		$scope.contact = myResumeData.getContact();
 		$scope.technos = myResumeData.getTechnos();
 		$scope.tools = myResumeData.getTools();

@@ -181,35 +181,40 @@
 				];
 				return skills;
 			},
-			getHobbies : function() {
-				var hobbies = {
-					hobby1 : {
+			getProjects : function() {
+				var projects = {
+					project1 : {
 						title : 'SuperServer II (Autenticador PPPoE)',
 						desc1 : 'Autenticação de 9000 assinantes em 1 servidor com bandwidth de 3 gigabits por segundo',
 						desc2 : 'Mpd5, radius, perl, ng_graph, ng_netflow and FreeBsd e DualStack em Conclusão (Ipv6 and CGNAT).'
 					},
-					hobby2 : {
+					project2 : {
 						title : 'Conversation Tracker',
-						desc1 : 'r: A middleware for smtp protocol with a dashboard for sellers',
+						desc1 : 'A middleware for smtp protocol with a dashboard for sellers',
 						desc2 : 'made Perl, Wing, SMTP, Ruby , Chef, AWS and OpsWorks'
 					},
-					hobby3 : {
+					project3 : {
 						title : 'MuitoHotMesmo (Sistema de hotspot) ',
 						desc1 : 'Autenticação e bilhetagem por tempo, créditos/cartões-pré-pagos ou logins. Feito em  Perl, Radius, Mysql, OpenWrt or Mikrotik or Ubiquity',
 						desc2 : '#teste #hotelaria # provedores #suaEmpresa #suaRua #internetEmtodoLugar #mesh'
 					},
-					hobby4 : {
-						title : 'SuperServer I (Autenticador PPPoE)',
-						desc1 : 'Autenticação de 5500 assinantes em 1 servidor com bandwidth de 1.6 gigabits por segundo',
-						desc2 : 'Mpd5, radius, perl, ng_graph, ng_netflow and FreeBsd.'
+					project4 : {
+						title : 'Router, Profiler, Debbuger and API Trottling',
+						desc1 : 'Continous deploy for WEBAPPS by Perl, Ruby, Wing, Varnish, AWS and Opsworks',
+						desc2 : 'Ngnix, Lua and OpenResty, Statsd, Redis.'
 					},
-					hobby5 : {
-						title : 'AvisaAê ( Sistema de alertas e notificações )',
-						desc1 : 'Sistema que emite alertas, avisos e notificações via WhatsApp, SMS e ligações telefônicas',
+					project5 : {
+						title : 'Monitoring WebApps',
+						desc1 : 'WebApps Monitor made Icinga, Perl, Ruby, ChefAWS EC2, ELB,',
+						desc2 : 'ROUTE53, S3, VPC, SNS, OPSWORKS'
+					},
+					project6 : {
+						title : 'Implements LogStash, Kibana, Graphite, Gdash',
+						desc1 : 'made Ruby, AWS, OpsWorks',
 						desc2 : ''
 					}
 				};
-				return hobbies;
+				return projects;
 			},
 			getContact : function() {
 				var contact = {
@@ -228,6 +233,7 @@
 					address : {
 						city    : 'Angra dos Reis',
 						zipCode : '23907205',
+						skype	: 'artur.brasil',
 						email   : 'arturbrasil@gmail.com'
 					}
 				};
@@ -238,7 +244,7 @@
 					profile : 'Perfil',
 					skills  : 'Competencias',
 					career  : 'Experiencia',
-					hobbies : 'Projetos',
+					projects : 'Projetos',
 					contact : 'Contatos',
 					tools : 'Ferramentas'
 				};
