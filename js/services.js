@@ -199,8 +199,8 @@
 						desc2 : '#teste #hotelaria # provedores #suaEmpresa #suaRua #internetEmtodoLugar #mesh'
 					},
 					project4 : {
-						title : 'Router, Profiler, Debbuger and API Trottling',
-						desc1 : 'Continous deploy for WEBAPPS by Perl, Ruby, Wing, Varnish, AWS and Opsworks',
+						title : 'Router, Profiler, Debbuger and API Trottling continous deploy for WEBAPPS ',
+						desc1 : 'Perl, Ruby, Wing, Varnish, AWS and Opsworks',
 						desc2 : 'Ngnix, Lua and OpenResty, Statsd, Redis.'
 					},
 					project5 : {
@@ -233,6 +233,7 @@
 					address : {
 						city    : 'Angra dos Reis',
 						zipCode : '23907205',
+						skype	: 'artur.brasil',
 						email   : 'arturbrasil@gmail.com'
 					}
 				};
