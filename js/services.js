@@ -233,7 +233,6 @@
 					address : {
 						city    : 'Angra dos Reis',
 						zipCode : '23907205',
-						skype	: 'artur.brasil',
 						email   : 'arturbrasil@gmail.com'
 					}
 				};
