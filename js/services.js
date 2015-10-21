@@ -186,7 +186,7 @@
 					project1 : {
 						title : 'EM CONCLUSÃO: SuperServer II (Autenticador PPPoE)',
 						desc1 : 'Autenticação de 9000 assinantes em 1 servidor com bandwidth de 3 gigabits por segundo',
-						desc2 : 'Mpd5, Bonding , radius, perl, ng_graph, ng_netflow and FreeBsd or OpenBsd e DualStack em testes (Ipv6 and CGNAT).'
+						desc2 : 'Mpd5, Bonding , radius, perl, ng_graph, ng_netflow, FreeBsd or OpenBsd and DualStack em testes (Ipv6 and CGNAT).'
 					},
 					project2 : {
 						title : 'Conversation Tracker',
