@@ -16,6 +16,8 @@ apt-get update
 apt-get install oracle-java8-installer oracle-java8-set-default -y
 apt-get install libcurl4-gnutls-dev fping libxml2 libxml2-dev -y
 apt-get install libmysqld-dev libiksemel3 libevent-dev libpcre3-dev -y
+apt-get install zabbix-server-mysql -y
+apt-get install zabbix-frontend -y
 mkdir -p /opt/zabbix
 cd /opt/zabbix
 
