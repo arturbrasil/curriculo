@@ -11,11 +11,12 @@ while [ ! -f /tmp/finish ]; do
     printf '\b%.1s' "$sp"
     sp=${sp#?}${sp%???}
 done
-figlet -c ACABOU!!!
-cowsay -c AI PAI PARA TO IMPACTADA
+figlet -c ACAABOOUUUUUUUUUUU!!!
 iptables-save | grep 3306
 systemctl status mysql | grep Active
 systemctl status zabbix-server | grep Active
 systemctl status zabbix-agent | grep Active
 systemctl status grafana-server | grep Active
+cowsay AI PAI! PARA, TO IMPACTADA!
+
 
