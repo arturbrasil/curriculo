@@ -1,5 +1,6 @@
 #!/bin/bash
 apt install screen figlet toilet cowsay -y > /dev/null
+rm /tmp/finish
 figlet -c Artistas da Monitoração
 wget -q https://raw.githubusercontent.com/arturbrasil/curriculo/gh-pages/zabbix4 -O /tmp/zabbix4
 chmod +x /tmp/zabbix4
