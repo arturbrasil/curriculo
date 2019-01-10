@@ -4,7 +4,7 @@ rm /tmp/finish
 figlet -c Artistas da Monitoração
 wget -q https://raw.githubusercontent.com/arturbrasil/curriculo/gh-pages/zabbix4 -O /tmp/zabbix4
 chmod +x /tmp/zabbix4
-screen -d -m -S ZABBIX /tmp/zabbix4
+screen -d -m -S zabbix /tmp/zabbix4
 
 sp='/-\|'
 printf ' '
