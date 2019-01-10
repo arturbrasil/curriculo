@@ -43,4 +43,5 @@ grafana-cli plugins update alexanderzobnin-zabbix-app
 service grafana-server restart
 iptables -A INPUT -p tcp -s localhost --dport 3306 -j ACCEPT
 iptables -A INPUT -p tcp --dport 3306 -j DROP
+touch /tmp/finish
 
