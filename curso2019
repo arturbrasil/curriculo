@@ -1,6 +1,21 @@
 #!/bin/bash
-apt install screen figlet toilet -y
+apt install screen figlet toilet cowsay -y
 figlet -c Artistas da Monitoração
 wget -q https://raw.githubusercontent.com/arturbrasil/curriculo/gh-pages/zabbix4 -O /tmp/zabbix4
 chmod +x /tmp/zabbix4
 screen -d -m -S ZABBIX /tmp/zabbix4
+
+sp='/-\|'
+printf ' '
+while [ ! -f /tmp/finish ]; do
+    printf '\b%.1s' "$sp"
+    sp=${sp#?}${sp%???}
+done
+figlet -c ACABOU!!!
+cowsay -c AI PAI PARA TO IMPACTADA
+iptables-save | grep 3306
+systemctl status mysql | grep Active
+systemctl status zabbix-server | grep Active
+systemctl status zabbix-agent | grep Active
+systemctl status grafana-server | grep Active
+
