@@ -41,6 +41,9 @@ sudo dpkg -i grafana_5.4.2_amd64.deb
 grafana-cli plugins install alexanderzobnin-zabbix-app
 grafana-cli plugins update alexanderzobnin-zabbix-app
 service grafana-server restart
+service mysql restart
+service zabbix-server restart
+service zabbix-agent restart
 iptables -A INPUT -p tcp -s localhost --dport 3306 -j ACCEPT
 iptables -A INPUT -p tcp --dport 3306 -j DROP
 touch /tmp/finish
