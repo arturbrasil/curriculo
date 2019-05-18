@@ -62,6 +62,7 @@ systemctl status zabbix-agent | grep Active
 systemctl status grafana-server | grep Active
 cowsay AI PAI! PARA, TO IMPACTADA!
 wget https://bit.ly/2SY7SBv -O check.sh && bash $_
+sudo apt-get install virtualbox-guest-additions-iso
 
 sh /media/cdrom/VBoxLinuxAdditions.run
 
