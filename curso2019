@@ -1,4 +1,15 @@
 #!/bin/bash
+
+VERSION='5.2.18' && \
+sudo apt-get install -y linux-headers-generic build-essential dkms && \
+sudo wget "http://download.virtualbox.org/virtualbox/$VERSION/VBoxGuestAdditions_$VERSION.iso" && \
+sudo mkdir /media/VBoxGuestAdditions && \
+sudo mount -o loop,ro "VBoxGuestAdditions_$VERSION.iso" /media/VBoxGuestAdditions && \
+sudo sh /media/VBoxGuestAdditions/VBoxLinuxAdditions.run && \
+sudo umount /media/VBoxGuestAdditions && \
+sudo rm -rf "VBoxGuestAdditions_$VERSION.iso" && \
+sudo rmdir /media/VBoxGuestAdditions
+
 apt install screen figlet toilet cowsay -y > /dev/null
 rm /tmp/finish
 figlet -c Artistas da Monitoracao
