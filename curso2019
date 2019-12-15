@@ -1,20 +1,22 @@
 #!/bin/bash
 
-VERSION='5.2.18' && \
-sudo apt-get install -y linux-headers-generic build-essential dkms && \
-sudo wget "http://download.virtualbox.org/virtualbox/$VERSION/VBoxGuestAdditions_$VERSION.iso" && \
-sudo mkdir /media/VBoxGuestAdditions && \
-sudo mount -o loop,ro "VBoxGuestAdditions_$VERSION.iso" /media/VBoxGuestAdditions && \
-sudo sh /media/VBoxGuestAdditions/VBoxLinuxAdditions.run && \
-sudo umount /media/VBoxGuestAdditions && \
-sudo rm -rf "VBoxGuestAdditions_$VERSION.iso" && \
-sudo rmdir /media/VBoxGuestAdditions
+#VERSION='5.2.18' && \
+sudo apt-get install -y linux-headers-generic build-essential dkms # && \
+#sudo wget "http://download.virtualbox.org/virtualbox/$VERSION/VBoxGuestAdditions_$VERSION.iso" && \
+#sudo mkdir /media/VBoxGuestAdditions && \
+#sudo mount -o loop,ro "VBoxGuestAdditions_$VERSION.iso" /media/VBoxGuestAdditions && \
+#sudo sh /media/VBoxGuestAdditions/VBoxLinuxAdditions.run && \
+#sudo umount /media/VBoxGuestAdditions && \
+#sudo rm -rf "VBoxGuestAdditions_$VERSION.iso" && \
+#sudo rmdir /media/VBoxGuestAdditions
 
 apt install screen figlet toilet cowsay -y > /dev/null
 rm /tmp/finish
 figlet -c Artistas da Monitoracao
-wget https://repo.zabbix.com/zabbix/4.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_4.0-2+bionic_all.deb
-dpkg -i zabbix-release_4.0-2+bionic_all.deb
+#wget https://repo.zabbix.com/zabbix/4.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_4.0-2+bionic_all.deb
+https://repo.zabbix.com/zabbix/4.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_4.4-1%2Bbionic_all.deb -O zabbix-4.4.1.deb
+#dpkg -i zabbix-release_4.0-2+bionic_all.deb
+dpkg -i zabbix-4.4.1.deb
 apt update
 apt install build-essential module-assistant
 apt install locales 
@@ -51,8 +53,8 @@ systemctl restart apache2
 
 sudo apt-get install -y adduser libfontconfig
 
-wget https://dl.grafana.com/oss/release/grafana_5.4.2_amd64.deb 
-sudo dpkg -i grafana_5.4.2_amd64.deb 
+wget https://dl.grafana.com/oss/release/grafana_6.5.2_amd64.deb
+sudo dpkg -i grafana_6.5.2_amd64.deb
 
 grafana-cli plugins install alexanderzobnin-zabbix-app
 grafana-cli plugins update alexanderzobnin-zabbix-app
@@ -65,16 +67,17 @@ iptables -A INPUT -p tcp --dport 3306 -j DROP
 touch /tmp/finish
 
 
-figlet -c ACAABOOUUUUUUUUUUU!!!
 iptables-save | grep 3306
 systemctl status mysql | grep Active
 systemctl status zabbix-server | grep Active
 systemctl status zabbix-agent | grep Active
 systemctl status grafana-server | grep Active
-cowsay AI PAI! PARA, TO IMPACTADA!
-wget https://bit.ly/2SY7SBv -O check.sh && bash $_
-sudo apt-get install virtualbox-guest-additions-iso
 
-sh /media/cdrom/VBoxLinuxAdditions.run
+figlet -c ACAABOOUUUUUUUUUUU!!!
+cowsay AI PAI! PARA, TO IMPACTADA!
+#wget https://bit.ly/2SY7SBv -O check.sh && bash $_
+#sudo apt-get install virtualbox-guest-additions-iso
+
+#sh /media/cdrom/VBoxLinuxAdditions.run
 
 
