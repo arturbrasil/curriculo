@@ -32,6 +32,7 @@ apt install zabbix-server-mysql zabbix-agent zabbix-frontend-php php-mysql php-g
 apt install nmap -y
 apt install snmp -y 
 apt install snmp-mibs-downloader -y
+apt install zabbix-apache-conf -y
 
 export DEBIAN_FRONTEND=noninteractive
 
