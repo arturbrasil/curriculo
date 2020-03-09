@@ -1,6 +1,6 @@
 #!/bin/bash
 figlet -c Artistas da Monitoracao
-rm zabbixegrafana
+
 cd /tmp
 rm *deb*
 alias apt-get='apt-get -y'
