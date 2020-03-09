@@ -1,4 +1,6 @@
 #!/bin/bash
+cd /tmp
+rm *deb*
 alias apt-get='apt-get -y'
 #VERSION='5.2.18' && \
 apt-get install -y linux-headers-generic build-essential dkms # && \
