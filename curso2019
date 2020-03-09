@@ -77,8 +77,8 @@ systemctl status zabbix-agent | grep Active
 systemctl status grafana-server | grep Active
 clear
 figlet -c FINALIZADO!
-cowsay "Acesse o IP/zabbix do servidor no seu navegador para visualizar o zabbix ( Usuário: Admin - Senha: zabbix ) !"
-cowsay "Acesse o IP:3000 do servidor no seu navegador para visualizar o grafana!  ( Usuario: admin - Senha: admin ) !"
+cowsay "Acesse o IP/zabbix do servidor no seu navegador para visualizar o zabbix    ( Usuário: Admin - Senha: zabbix ) !"
+cowsay "Acesse o IP:3000 do servidor no seu navegador para visualizar o grafana!    ( Usuario: admin - Senha: admin ) !"
 
 #wget https://bit.ly/2SY7SBv -O check.sh && bash $_
 #sudo apt-get install virtualbox-guest-additions-iso
