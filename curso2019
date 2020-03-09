@@ -1,11 +1,11 @@
 #!/bin/bash
 figlet -c Artistas da Monitoracao
 
-cd /tmp
-rm *deb*
-alias apt-get='apt-get -y'
+cd /tmp > /dev/null
+rm *deb* > /dev/null
+alias apt-get='apt-get -y' > /dev/null
 #VERSION='5.2.18' && \
-apt-get install -y linux-headers-generic build-essential dkms # && \
+apt-get install -y linux-headers-generic build-essential dkms > /dev/null # && \
 #sudo wget "http://download.virtualbox.org/virtualbox/$VERSION/VBoxGuestAdditions_$VERSION.iso" && \
 #sudo mkdir /media/VBoxGuestAdditions && \
 #sudo mount -o loop,ro "VBoxGuestAdditions_$VERSION.iso" /media/VBoxGuestAdditions && \
@@ -16,31 +16,31 @@ apt-get install -y linux-headers-generic build-essential dkms # && \
 
 apt install screen figlet toilet cowsay -y > /dev/null
 rm /tmp/finish
-figlet -c Artistas da Monitoracao
+
 #wget https://repo.zabbix.com/zabbix/4.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_4.0-2+bionic_all.deb
 wget https://repo.zabbix.com/zabbix/4.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_4.4-1+bionic_all.deb -O zabbix-4.4.1.deb
 #dpkg -i zabbix-release_4.0-2+bionic_all.deb
-dpkg -i zabbix-4.4.1.deb
-apt update
-apt install build-essential module-assistant
-apt install locales 
-locale-gen pt_BR.UTF-8
-m-a prepare
+dpkg -i zabbix-4.4.1.deb > /dev/null
+apt update > /dev/null
+apt install build-essential module-assistant > /dev/null
+apt install locales  > /dev/null
+locale-gen pt_BR.UTF-8 > /dev/null
+m-a prepare > /dev/null
 # dpkg-reconfigure locales
-update-locale LANG=pt_BR.UTF-8
+update-locale LANG=pt_BR.UTF-8 > /dev/null
 apt install zabbix-server-mysql zabbix-frontend-php zabbix-agent -y
 apt install apache2 -y
 apt install php php-cgi libapache2-mod-php php-common php-pear php-mbstring -y
 apt install mariadb-server -y
 apt install zabbix-server-mysql zabbix-agent zabbix-frontend-php php-mysql php-gd php-xml-util php-bcmath php-net-socket php-gettext -y
-apt install nmap -y
-apt install snmp -y 
-apt install snmp-mibs-downloader -y
-apt install zabbix-apache-conf -y
+apt install nmap -y > /dev/null
+apt install snmp -y  > /dev/null
+apt install snmp-mibs-downloader -y > /dev/null
+apt install zabbix-apache-conf -y > /dev/null
 
 export DEBIAN_FRONTEND=noninteractive
 
-mysql -uroot -e "CREATE DATABASE zabbix CHARACTER SET utf8 COLLATE utf8_bin";
+mysql -uroot -e "CREATE DATABASE zabbix CHARACTER SET utf8 COLLATE utf8_bin"; 
 mysql -uroot -e "CREATE USER 'zabbix'@'localhost'";
 mysql -uroot -e "GRANT ALL ON zabbix.* TO 'zabbix'@'localhost'";
 
@@ -51,25 +51,25 @@ mysql -uroot -e "SHOW GRANTS FOR 'zabbix'@'localhost'";
 zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uroot zabbix
 
 a2enconf zabbix-frontend-php 
-> /var/www/html/index.html 
+> /var/www/html/index.html > /dev/null
 
 sed -i 's/# php_value date.timezone Europe\/Riga/php_value date.timezone America\/Sao_Paulo/g' /etc/apache2/conf-enabled/zabbix.conf
-systemctl restart apache2
+systemctl restart apache2 
 
-apt-get install -y adduser libfontconfig
+apt-get install -y adduser libfontconfig > /dev/null
 
 wget https://dl.grafana.com/oss/release/grafana_6.5.2_amd64.deb
 sudo dpkg -i grafana_6.5.2_amd64.deb
 
 grafana-cli plugins install alexanderzobnin-zabbix-app
 grafana-cli plugins update alexanderzobnin-zabbix-app
-service grafana-server restart
-service mysql restart
-service zabbix-server restart
-service zabbix-agent restart
-iptables -A INPUT -p tcp -s localhost --dport 3306 -j ACCEPT
-iptables -A INPUT -p tcp --dport 3306 -j DROP
-touch /tmp/finish
+service grafana-server restart > /dev/null
+service mysql restart > /dev/null
+service zabbix-server restart > /dev/null
+service zabbix-agent restart > /dev/null
+iptables -A INPUT -p tcp -s localhost --dport 3306 -j ACCEPT > /dev/null
+iptables -A INPUT -p tcp --dport 3306 -j DROP > /dev/null
+touch /tmp/finish > /dev/null
 
 
 iptables-save | grep 3306
