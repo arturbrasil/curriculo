@@ -77,6 +77,8 @@ systemctl status mysql | grep Active
 systemctl status zabbix-server | grep Active
 systemctl status zabbix-agent | grep Active
 systemctl status grafana-server | grep Active
+cd /usr/share/snmp/mibs
+git clone https://github.com/arturbrasil/vendors.git
 clear
 figlet -c FINALIZADO!
 cowsay -f tux "Acesse o IP/zabbix do servidor no seu navegador para visualizar o zabbix!      Usuário: Admin - Senha: zabbix  !"
