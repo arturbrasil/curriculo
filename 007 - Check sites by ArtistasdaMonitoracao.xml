@@ -12,8 +12,8 @@
     </groups>
     <templates>
         <template>
-            <template>007 - Check sites by facebook.com/artistasdamonitoracao</template>
-            <name>007 - Check sites by facebook.com/artistasdamonitoracao</name>
+            <template>007 - Check sites by Artistasdamonitoracao</template>
+            <name>007 - Check sites by Artistasdamonitoracao</name>
             <groups>
                 <group>
                     <name>Templates</name>
@@ -123,7 +123,7 @@
                     <drawtype>GRADIENT_LINE</drawtype>
                     <color>00C800</color>
                     <item>
-                        <host>007 - Check sites by facebook.com/artistasdamonitoracao</host>
+                        <host>007 - Check sites by Artistasdamonitoracao</host>
                         <key>net.tcp.service.perf[http]</key>
                     </item>
                 </graph_item>
@@ -138,7 +138,7 @@
                     <color>C80000</color>
                     <calc_fnc>MAX</calc_fnc>
                     <item>
-                        <host>007 - Check sites by facebook.com/artistasdamonitoracao</host>
+                        <host>007 - Check sites by Artistasdamonitoracao</host>
                         <key>icmppingsec[,5,1000,1424,500]</key>
                     </item>
                 </graph_item>
@@ -146,7 +146,7 @@
                     <sortorder>1</sortorder>
                     <color>00C8C8</color>
                     <item>
-                        <host>007 - Check sites by facebook.com/artistasdamonitoracao</host>
+                        <host>007 - Check sites by Artistasdamonitoracao</host>
                         <key>icmppingsec[,5,1000,1424,500]</key>
                     </item>
                 </graph_item>
@@ -155,7 +155,7 @@
                     <color>FFD54F</color>
                     <calc_fnc>MIN</calc_fnc>
                     <item>
-                        <host>007 - Check sites by facebook.com/artistasdamonitoracao</host>
+                        <host>007 - Check sites by Artistasdamonitoracao</host>
                         <key>icmppingsec[,5,1000,1424,500]</key>
                     </item>
                 </graph_item>
@@ -165,7 +165,7 @@
                     <color>F06292</color>
                     <calc_fnc>MAX</calc_fnc>
                     <item>
-                        <host>007 - Check sites by facebook.com/artistasdamonitoracao</host>
+                        <host>007 - Check sites by Artistasdamonitoracao</host>
                         <key>icmppingsec[,5,1000,68,500]</key>
                     </item>
                 </graph_item>
@@ -173,7 +173,7 @@
                     <sortorder>4</sortorder>
                     <color>673AB7</color>
                     <item>
-                        <host>007 - Check sites by facebook.com/artistasdamonitoracao</host>
+                        <host>007 - Check sites by Artistasdamonitoracao</host>
                         <key>icmppingsec[,5,1000,68,500]</key>
                     </item>
                 </graph_item>
@@ -182,7 +182,7 @@
                     <color>24146D</color>
                     <calc_fnc>MIN</calc_fnc>
                     <item>
-                        <host>007 - Check sites by facebook.com/artistasdamonitoracao</host>
+                        <host>007 - Check sites by Artistasdamonitoracao</host>
                         <key>icmppingsec[,5,1000,68,500]</key>
                     </item>
                 </graph_item>
@@ -191,7 +191,7 @@
                     <color>9575CD</color>
                     <yaxisside>RIGHT</yaxisside>
                     <item>
-                        <host>007 - Check sites by facebook.com/artistasdamonitoracao</host>
+                        <host>007 - Check sites by Artistasdamonitoracao</host>
                         <key>icmppingloss[,5,1000,1424,500]</key>
                     </item>
                 </graph_item>
@@ -200,7 +200,7 @@
                     <color>0288D1</color>
                     <yaxisside>RIGHT</yaxisside>
                     <item>
-                        <host>007 - Check sites by facebook.com/artistasdamonitoracao</host>
+                        <host>007 - Check sites by Artistasdamonitoracao</host>
                         <key>icmppingloss[,5,1000,68,500]</key>
                     </item>
                 </graph_item>
