@@ -39,6 +39,7 @@ apt install nmap -y
 apt install snmp -y  
 apt install snmp-mibs-downloader -y 
 apt install zabbix-apache-conf -y 
+apt install jq -y
 
 export DEBIAN_FRONTEND=noninteractive
 
