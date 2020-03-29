@@ -90,7 +90,7 @@ wget https://raw.githubusercontent.com/arturbrasil/curriculo/gh-pages/zabbix-dat
 for i in /tmp/zabbix-datasource ; do \
     curl -X "POST" "http://127.0.0.1:3000/api/datasources" \
     -H "Content-Type: application/json" \
-    --user admin:admin \
+    --user Admin:zabbix \
     --data-binary @$i
 done
 
