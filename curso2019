@@ -112,4 +112,13 @@ cowsay -f tux "Acesse o IP:3000 do servidor no seu navegador para visualizar o g
 
 #sh /media/cdrom/VBoxLinuxAdditions.run
 
+cd /usr/share/snmp/mibs
+git clone https://github.com/arturbrasil/vendors.git
+apt-get install snmpd
+mkdir -p $HOME/.snmp
+for i in `ls -d /usr/share/snmp/mibs/vendors/*/`; do
+ echo "mibdirs +$i" > $HOME/.snmp/snmp.conf
+ export MIBDIRS=$MIBDIRS:$i
+done
 
+export MIBS=+ALL
