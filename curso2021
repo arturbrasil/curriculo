@@ -46,20 +46,18 @@ apt-get -y install nperf-server
 
 export DEBIAN_FRONTEND=noninteractive
 
-mysql -uroot -e "CREATE DATABASE zabbix CHARACTER SET utf8 COLLATE utf8_bin"; 
-mysql -uroot -e "CREATE USER 'zabbix'@'localhost'";
-mysql -uroot -e "GRANT ALL ON zabbix.* TO 'zabbix'@'localhost'";
+mysql -uroot --password="" -e "CREATE DATABASE zabbix CHARACTER SET utf8 COLLATE utf8_bin"; 
+mysql -uroot --password="" -e "CREATE USER 'zabbix'@'localhost'";
+mysql -uroot --password="" -e "GRANT ALL ON zabbix.* TO 'zabbix'@'localhost'";
 
-mysql -uroot -e "SHOW DATABASES";
-mysql -uroot -e "SELECT host, user FROM mysql.user";
-mysql -uroot -e "SHOW GRANTS FOR 'zabbix'@'localhost'";
+mysql -uroot --password="" -e "SHOW DATABASES";
+mysql -uroot --password="" -e "SELECT host, user FROM mysql.user";
+mysql -uroot --password="" -e "SHOW GRANTS FOR 'zabbix'@'localhost'";
 
-zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uzabbix -p zabbix 
+zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uzabbix --password="" 
 a2enconf zabbix-frontend-php 
 > /var/www/html/index.html 
 sed -i 's/# php_value date.timezone Europe\/Riga/php_value date.timezone America\/Sao_Paulo/g' /etc/apache2/conf-enabled/zabbix.conf
-
-
 
 sudo apt-get install -y adduser libfontconfig1
 wget https://dl.grafana.com/oss/release/grafana_7.5.1_amd64.deb
