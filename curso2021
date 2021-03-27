@@ -106,7 +106,7 @@ done
 grafana_host="http://localhost:3000"
 grafana_cred="admin:admin"
 grafana_datasource="zabbix"
-apt install paralell jq curl httpio unzip snmp-mibs-downloader htop speedtest-cli iotop nmap silversearcher-ag ngrep tshark -y 
+apt install paralell jq curl httpio nmap ncat dnsutils unzip snmp-mibs-downloader htop speedtest-cli iotop nmap silversearcher-ag ngrep tshark -y 
 snap install gotop
 wget https://raw.githubusercontent.com/arturbrasil/curriculo/gh-pages/dash-redes-sociais.json
 
