@@ -53,8 +53,11 @@ mysql -uroot --password="" -e "GRANT ALL ON zabbix.* TO 'zabbix'@'localhost'";
 mysql -uroot --password="" -e "SHOW DATABASES";
 mysql -uroot --password="" -e "SELECT host, user FROM mysql.user";
 mysql -uroot --password="" -e "SHOW GRANTS FOR 'zabbix'@'localhost'";
+figlet -f smmono9 "AGUARDE!" 
+figlet -f smmono9 "CRIANDO BANCO DE DADOS!"
+cowsay "PODE DEMORAR!" 
+pv -p /usr/share/doc/zabbix-server-mysql*/create.sql.gz| zcat | mysql -uzabbix --password="" zabbix
 
-zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uzabbix --password="" 
 a2enconf zabbix-frontend-php 
 > /var/www/html/index.html 
 sed -i 's/# php_value date.timezone Europe\/Riga/php_value date.timezone America\/Sao_Paulo/g' /etc/apache2/conf-enabled/zabbix.conf
@@ -134,7 +137,7 @@ alias fixmibs="MIBDIRS=`ls  -d /usr/share/snmp/mibs/*/*/| xargs | tr ' ' ':'`"
 EOF
 . ~/.bashrc 
 ip=`getip`
-figlet -c FINALIZADO!
+
 cowsay -f tux "Acesse o http://$ip/zabbix"
 echo "Usuário:Admin"
 echo "Senha: zabbix"
@@ -144,3 +147,4 @@ echo "Senha: admin"
 
 cowsay -f tux "No wizard do zabbix, clique em avançar em todas etapas sem alterar nada, nem mesmo as informações do MYSQL!"
 alias fixmibs="MIBDIRS=`ls  -d /usr/share/snmp/mibs/*/*/| xargs | tr ' ' ':'`"
+cowsay  "FIM"
