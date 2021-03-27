@@ -21,7 +21,7 @@ rm /tmp/finish
 wget https://repo.zabbix.com/zabbix/5.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_5.2-1+ubuntu20.04_all.deb
 dpkg -i zabbix-release_5.2-1+ubuntu20.04_all.deb
 apt update 
-
+apt install mysql-server -y
 apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-agent -y
 
 apt install build-essential module-assistant  -y
@@ -85,10 +85,12 @@ cd /usr/share/snmp/mibs
 git clone https://github.com/arturbrasil/vendors.git
 apt-get install snmpd
 mkdir -p $HOME/.snmp
-for i in `ls -d /usr/share/snmp/mibs/vendors/*/`; do
- echo "mibdirs +$i" > $HOME/.snmp/snmp.conf
- export MIBDIRS=$MIBDIRS:$i
-done
+
+
+#for i in `ls -d /usr/share/snmp/mibs/vendors/*/`; do
+# echo "mibdirs +$i" > $HOME/.snmp/snmp.conf
+# export MIBDIRS=$MIBDIRS:$i
+#done
 
 clear
 cd /tmp
@@ -104,15 +106,15 @@ done
 grafana_host="http://localhost:3000"
 grafana_cred="admin:admin"
 grafana_datasource="zabbix"
-
+apt install paralell jq curl httpio unzip snmp-mibs-downloader htop speedtest-cli iotop nmap silversearcher-ag ngrep tshark -y 
+snap install gotop
 wget https://raw.githubusercontent.com/arturbrasil/curriculo/gh-pages/dash-redes-sociais.json
 
 cat dash-redes-sociais.json | jq '. * {overwrite: true, dashboard: {id: null}}' | curl -s -k -u "$grafana_cred" -XPOST -H "Accept: application/json" \
     -H "Content-Type: application/json" \
     $grafana_host/api/dashboards/import  -d  @- ;
 
-apt install paralell unzip snmp-mibs-downloader htop speedtest-cli iotop nmap silversearcher-ag ngrep tshark -y 
-snap install gotop
+
 
 #FIX CACHESIZE
 sed s/'# CacheSize=8M'/'CacheSize=512M'/g -i /etc/zabbix/zabbix_server.conf
