@@ -1,12 +1,12 @@
 #!/bin/bash
-apt update
-apt install screen figlet toilet cowsay -y 
+apt update > /dev/null 2>&1
+apt install screen figlet toilet cowsay -y > /dev/null 2>&1
 
 figlet -c Artistas da Monitoracao
 
 cd /tmp 
 rm *deb* 
-alias apt-get='apt-get -y' 
+alias apt-get='apt-get -y'  > /dev/null 2>&1
 VERSION='6.1.18' && \
 apt-get install -y linux-headers-generic build-essential dkms  # && \
 sudo wget "http://download.virtualbox.org/virtualbox/$VERSION/VBoxGuestAdditions_$VERSION.iso" && \
