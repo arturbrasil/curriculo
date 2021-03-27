@@ -26,16 +26,24 @@ apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-ag
 
 apt install build-essential module-assistant  -y
 apt install locales -y 
-apt install paralell -y 
+
 locale-gen pt_BR.UTF-8 
 m-a prepare 
 # dpkg-reconfigure locales
 update-locale LANG=pt_BR.UTF-8 
 
-apt install snmp -y  
-apt install snmp-mibs-downloader -y 
-apt install zabbix-apache-conf -y 
+apt install snmp snmpd -y  
+apt install snmp-mibs-downloader -y  
 apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-agent
+
+
+apt-get -y install lsb-release gnupg &&\
+wget -O - https://repo.nperf.com/apt/conf/nperf-server.gpg.key | apt-key add - &&\
+echo "deb [arch=amd64] http://repo.nperf.com/apt $(lsb_release -sc) main non-free" >> /etc/apt/sources.list.d/nperf.list &&\
+apt-get update &&\
+apt-get -y install nperf-server
+
+
 export DEBIAN_FRONTEND=noninteractive
 
 mysql -uroot -e "CREATE DATABASE zabbix CHARACTER SET utf8 COLLATE utf8_bin"; 
@@ -50,33 +58,39 @@ zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uzabbix -p zabbi
 a2enconf zabbix-frontend-php 
 > /var/www/html/index.html 
 sed -i 's/# php_value date.timezone Europe\/Riga/php_value date.timezone America\/Sao_Paulo/g' /etc/apache2/conf-enabled/zabbix.conf
-systemctl restart zabbix-server zabbix-agent apache2
-systemctl enable zabbix-server zabbix-agent apache2 
+
+
 
 sudo apt-get install -y adduser libfontconfig1
 wget https://dl.grafana.com/oss/release/grafana_7.5.1_amd64.deb
 sudo dpkg -i grafana_7.5.1_amd64.deb
 
+systemctl enable zabbix-server zabbix-agent apache2 grafana-server
+systemctl restart zabbix-server zabbix-agent apache2 grafana-server
+
 grafana-cli plugins install alexanderzobnin-zabbix-app
 grafana-cli plugins update alexanderzobnin-zabbix-app
-service grafana-server restart 
-service mysql restart 
-service zabbix-server restart 
-service zabbix-agent restart 
+
 iptables -A INPUT -p tcp -s localhost --dport 3306 -j ACCEPT 
 iptables -A INPUT -p tcp --dport 3306 -j DROP 
 touch /tmp/finish 
-
 
 iptables-save | grep 3306
 systemctl status mysql | grep Active
 systemctl status zabbix-server | grep Active
 systemctl status zabbix-agent | grep Active
 systemctl status grafana-server | grep Active
+
 cd /usr/share/snmp/mibs
 git clone https://github.com/arturbrasil/vendors.git
-clear
+apt-get install snmpd
+mkdir -p $HOME/.snmp
+for i in `ls -d /usr/share/snmp/mibs/vendors/*/`; do
+ echo "mibdirs +$i" > $HOME/.snmp/snmp.conf
+ export MIBDIRS=$MIBDIRS:$i
+done
 
+clear
 cd /tmp
 wget https://raw.githubusercontent.com/arturbrasil/curriculo/gh-pages/zabbix-datasource
 
@@ -87,24 +101,30 @@ for i in /tmp/zabbix-datasource ; do \
     --data-binary @$i
 done
 
-
-
 grafana_host="http://localhost:3000"
 grafana_cred="admin:admin"
 grafana_datasource="zabbix"
+
 wget https://raw.githubusercontent.com/arturbrasil/curriculo/gh-pages/dash-redes-sociais.json
 
 cat dash-redes-sociais.json | jq '. * {overwrite: true, dashboard: {id: null}}' | curl -s -k -u "$grafana_cred" -XPOST -H "Accept: application/json" \
     -H "Content-Type: application/json" \
     $grafana_host/api/dashboards/import  -d  @- ;
 
-systemctl restart zabbix-server zabbix-agent apache2
-systemctl enable zabbix-server zabbix-agent apache2
+apt install paralell unzip snmp-mibs-downloader htop speedtest-cli iotop nmap silversearcher-ag ngrep tshark -y 
+snap install gotop
 
+#FIX CACHESIZE
+sed s/'# CacheSize=8M'/'CacheSize=512M'/g -i /etc/zabbix/zabbix_server.conf
 
+systemctl restart zabbix-server zabbix-agent apache2 grafana-server
 cat <<'EOF' >> ~/.bashrc 
 alias getip="ip a | grep -oP '(?<=inet |addr:)(?:\d+\.){3}\d+' | grep -v 127.0.0.1"
 alias testdns="parallel -j0 --tag dig @{}  ::: 208.67.222.222 208.67.220.220 198.153.192.1 198.153.194.1 156.154.70.1 156.154.71.1 8.8.8.8 8.8.4.4 | grep Query | tr ";" ">" | sort -nk5"
+alias fixmibs="for i in `ls -d /usr/share/snmp/mibs/vendors/*/`; do
+ echo "mibdirs +$i" > $HOME/.snmp/snmp.conf
+ export MIBDIRS=$MIBDIRS:$i
+done"
 EOF
 . ~/.bashrc 
 ip=`getip`
