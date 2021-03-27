@@ -101,7 +101,7 @@ systemctl restart zabbix-server zabbix-agent apache2
 systemctl enable zabbix-server zabbix-agent apache2
 figlet -c FINALIZADO!
 
-ip=`ip a | grep -oP '(?<=inet |addr:)(?:\d+\.){3}\d+' grep -v 127.0.0.1`
+ip=`ip a | grep -oP '(?<=inet |addr:)(?:\d+\.){3}\d+' | grep -v 127.0.0.1`
 
 cowsay -f tux "Acesse o http://$ip/zabbix"
 echo "Usuário:Admin"
