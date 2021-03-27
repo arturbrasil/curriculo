@@ -7,14 +7,14 @@ figlet -c Artistas da Monitoracao
 cd /tmp 
 rm *deb* 
 alias apt-get='apt-get -y'  > /dev/null 2>&1
-VERSION='6.1.18' && \
-apt-get install -y linux-headers-generic build-essential dkms  # && \
-sudo wget "http://download.virtualbox.org/virtualbox/$VERSION/VBoxGuestAdditions_$VERSION.iso" && \
-sudo mkdir /media/VBoxGuestAdditions && \
-sudo mount -o loop,ro "VBoxGuestAdditions_$VERSION.iso" /media/VBoxGuestAdditions && \
-sudo sh /media/VBoxGuestAdditions/VBoxLinuxAdditions.run && \
-sudo umount /media/VBoxGuestAdditions && \
-sudo rm -rf "VBoxGuestAdditions_$VERSION.iso" && \
+VERSION='6.1.18' 
+apt-get install -y linux-headers-generic build-essential dkms 
+apt install virtualbox-guest-utils virtualbox-guest-dkms -y
+sudo wget "http://download.virtualbox.org/virtualbox/$VERSION/VBoxGuestAdditions_$VERSION.iso"
+sudo mkdir /media/VBoxGuestAdditions 
+sudo mount -o loop,ro "VBoxGuestAdditions_$VERSION.iso" /media/VBoxGuestAdditions 
+sudo sh /media/VBoxGuestAdditions/VBoxLinuxAdditions.run 
+sudo umount /media/VBoxGuestAdditions 
 sudo rmdir /media/VBoxGuestAdditions
 
 rm /tmp/finish
