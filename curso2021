@@ -33,15 +33,15 @@ m-a prepare
 update-locale LANG=pt_BR.UTF-8 
 
 apt install snmp snmpd -y  
-apt install snmp-mibs-downloader -y  
+apt install snmp-mibs-downloader vim-y  
 apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-agent
 
 
-apt-get -y install lsb-release gnupg &&\
-wget -O - https://repo.nperf.com/apt/conf/nperf-server.gpg.key | apt-key add - &&\
-echo "deb [arch=amd64] http://repo.nperf.com/apt $(lsb_release -sc) main non-free" >> /etc/apt/sources.list.d/nperf.list &&\
-apt-get update &&\
-apt-get -y install nperf-server
+# apt-get -y install lsb-release gnupg &&\
+# wget -O - https://repo.nperf.com/apt/conf/nperf-server.gpg.key | apt-key add - &&\
+# echo "deb [arch=amd64] http://repo.nperf.com/apt $(lsb_release -sc) main non-free" >> /etc/apt/sources.list.d/nperf.list &&\
+# apt-get update &&\
+# apt-get -y install nperf-server
 
 
 export DEBIAN_FRONTEND=noninteractive
