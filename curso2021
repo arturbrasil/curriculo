@@ -86,6 +86,8 @@ for i in /tmp/zabbix-datasource ; do \
     --data-binary @$i
 done
 
+
+
 grafana_host="http://localhost:3000"
 grafana_cred="admin:admin"
 grafana_datasource="zabbix"
@@ -98,5 +100,12 @@ cat dash-redes-sociais.json | jq '. * {overwrite: true, dashboard: {id: null}}' 
 systemctl restart zabbix-server zabbix-agent apache2
 systemctl enable zabbix-server zabbix-agent apache2
 figlet -c FINALIZADO!
-cowsay -f tux "Acesse o IP/zabbix do servidor no seu navegador para visualizar o zabbix!      Usuário: Admin - Senha: zabbix  !"
-cowsay -f tux "Acesse o IP:3000 do servidor no seu navegador para visualizar o grafana!       Usuário: admin - Senha: admin   !"
+
+ip=`ip a | grep -oP '(?<=inet |addr:)(?:\d+\.){3}\d+' grep -v 127.0.0.1`
+
+cowsay -f tux "Acesse o http://$ip/zabbix"
+echo "Usuário:Admin"
+echo "Senha: zabbix"
+cowsay -f tux "Acesse o http://$ip:3000"
+echo "Usuário:admin"
+echo "Senha: admin"
