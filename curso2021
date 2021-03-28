@@ -24,7 +24,7 @@ apt update
 apt install mysql-server -y
 apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-agent -y
 
-apt install build-essential module-assistant  -y
+apt install build-essential module-assistant pv -y
 apt install locales -y 
 
 locale-gen pt_BR.UTF-8 
