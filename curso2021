@@ -33,7 +33,7 @@ m-a prepare
 update-locale LANG=pt_BR.UTF-8 
 
 apt install snmp snmpd -y  
-apt install snmp-mibs-downloader vim-y  
+apt install snmp-mibs-downloader vim -y  
 apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-agent
 
 
