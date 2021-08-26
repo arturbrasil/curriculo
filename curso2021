@@ -136,7 +136,7 @@ alias testdns="parallel -j0 --tag dig @{}  ::: 208.67.222.222 208.67.220.220 198
 alias fixmibs=export MIBDIRS=`ls  -d /usr/share/snmp/mibs/vendors/*/ |  xargs | tr ' ' ':'` 
 export MIBDIRS=`ls  -d /usr/share/snmp/mibs/vendors/*/ |  xargs | tr ' ' ':'` 
 ls  -d /usr/share/snmp/mibs/vendors/*/ | xargs -n1 echo mibdirs +  >> /etc/snmp/snmp.conf
-echo "mibs +ALL" > /etc/snmp/snmp.conf
+echo "mibs +ALL" >> /etc/snmp/snmp.conf
 
 EOF
 . ~/.bashrc 
