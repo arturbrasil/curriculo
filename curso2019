@@ -1,0 +1,161 @@
+#!/bin/bash
+apt update
+apt install screen figlet toilet cowsay -y
+
+figlet -c Artistas da Monitoracao
+
+cd /tmp 
+rm *deb* 
+alias apt-get='apt-get -y'  > /dev/null 2>&1
+VERSION='6.1.18' 
+apt-get install -y linux-headers-generic build-essential dkms 
+apt install virtualbox-guest-utils virtualbox-guest-dkms -y
+sudo wget "http://download.virtualbox.org/virtualbox/$VERSION/VBoxGuestAdditions_$VERSION.iso"
+sudo mkdir /media/VBoxGuestAdditions 
+sudo mount -o loop,ro "VBoxGuestAdditions_$VERSION.iso" /media/VBoxGuestAdditions 
+sudo sh /media/VBoxGuestAdditions/VBoxLinuxAdditions.run 
+sudo umount /media/VBoxGuestAdditions 
+sudo rmdir /media/VBoxGuestAdditions
+
+rm /tmp/finish
+wget https://repo.zabbix.com/zabbix/5.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_5.2-1+ubuntu20.04_all.deb
+dpkg -i zabbix-release_5.2-1+ubuntu20.04_all.deb
+apt update 
+apt install mysql-server -y
+apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-agent -y
+
+apt install build-essential module-assistant pv -y
+apt install locales -y 
+
+locale-gen pt_BR.UTF-8 
+m-a prepare 
+# dpkg-reconfigure locales
+update-locale LANG=pt_BR.UTF-8 
+
+apt install snmp snmpd -y  
+apt install snmp-mibs-downloader vim -y  
+apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-agent
+
+
+# apt-get -y install lsb-release gnupg &&\
+# wget -O - https://repo.nperf.com/apt/conf/nperf-server.gpg.key | apt-key add - &&\
+# echo "deb [arch=amd64] http://repo.nperf.com/apt $(lsb_release -sc) main non-free" >> /etc/apt/sources.list.d/nperf.list &&\
+# apt-get update &&\
+# apt-get -y install nperf-server
+
+
+export DEBIAN_FRONTEND=noninteractive
+
+mysql -uroot --password="" -e "CREATE DATABASE zabbix CHARACTER SET utf8 COLLATE utf8_bin"; 
+mysql -uroot --password="" -e "CREATE USER 'zabbix'@'localhost'";
+mysql -uroot --password="" -e "GRANT ALL ON zabbix.* TO 'zabbix'@'localhost'";
+
+mysql -uroot --password="" -e "SHOW DATABASES";
+mysql -uroot --password="" -e "SELECT host, user FROM mysql.user";
+mysql -uroot --password="" -e "SHOW GRANTS FOR 'zabbix'@'localhost'";
+figlet -f smmono9 "AGUARDE!" 
+figlet -f smmono9 "CRIANDO BANCO DE DADOS!"
+cowsay "PODE DEMORAR!" 
+pv /usr/share/doc/zabbix-server-mysql*/create.sql.gz| gunzip | mysql -uzabbix --password="" zabbix
+
+a2enconf zabbix-frontend-php 
+> /var/www/html/index.html 
+sed -i 's/# php_value date.timezone Europe\/Riga/php_value date.timezone America\/Sao_Paulo/g' /etc/apache2/conf-enabled/zabbix.conf
+
+sudo apt-get install -y adduser libfontconfig1
+wget https://dl.grafana.com/oss/release/grafana_7.5.1_amd64.deb
+sudo dpkg -i grafana_7.5.1_amd64.deb
+
+systemctl enable zabbix-server zabbix-agent apache2 grafana-server
+systemctl restart zabbix-server zabbix-agent apache2 grafana-server
+
+grafana-cli plugins install alexanderzobnin-zabbix-app
+grafana-cli plugins update alexanderzobnin-zabbix-app
+
+iptables -A INPUT -p tcp -s localhost --dport 3306 -j ACCEPT 
+iptables -A INPUT -p tcp --dport 3306 -j DROP 
+touch /tmp/finish 
+
+iptables-save | grep 3306
+systemctl status mysql | grep Active
+systemctl status zabbix-server | grep Active
+systemctl status zabbix-agent | grep Active
+systemctl status grafana-server | grep Active
+
+cd /usr/share/snmp/mibs
+git clone https://github.com/arturbrasil/vendors.git
+apt-get install snmpd
+mkdir -p $HOME/.snmp
+
+
+#for i in `ls -d /usr/share/snmp/mibs/vendors/*/`; do
+# echo "mibdirs +$i" > $HOME/.snmp/snmp.conf
+# export MIBDIRS=$MIBDIRS:$i
+#done
+
+clear
+cd /tmp
+wget https://raw.githubusercontent.com/arturbrasil/curriculo/gh-pages/zabbix-datasource
+
+for i in /tmp/zabbix-datasource ; do \
+    curl -X "POST" "http://127.0.0.1:3000/api/datasources" \
+    -H "Content-Type: application/json" \
+    --user admin:admin \
+    --data-binary @$i
+done
+
+grafana_host="http://localhost:3000"
+grafana_cred="admin:admin"
+grafana_datasource="zabbix"
+apt install parallel jq curl httpie nmap ncat dnsutils unzip snmp-mibs-downloader htop speedtest-cli iotop nmap silversearcher-ag ngrep -y 
+snap install gotop
+wget https://raw.githubusercontent.com/arturbrasil/curriculo/gh-pages/dash-redes-sociais.json
+
+cat dash-redes-sociais.json | jq '. * {overwrite: true, dashboard: {id: null}}' | curl -s -k -u "$grafana_cred" -XPOST -H "Accept: application/json" \
+    -H "Content-Type: application/json" \
+    $grafana_host/api/dashboards/import  -d  @- ;
+
+
+
+#FIX CACHESIZE
+sed s/'# CacheSize=8M'/'CacheSize=512M'/g -i /etc/zabbix/zabbix_server.conf
+
+systemctl restart zabbix-server zabbix-agent apache2 grafana-server
+cat <<'EOF' >> ~/.bashrc
+shopt -s histappend
+HISTFILESIZE=1000000
+HISTSIZE=1000000
+HISTCONTROL=ignoreboth
+HISTIGNORE='history'
+HISTTIMEFORMAT='%F %T '
+shopt -s cmdhist
+PROMPT_COMMAND='history -a'
+
+alias getip="ip a | grep -oP '(?<=inet |addr:)(?:\d+\.){3}\d+' | grep -v 127.0.0.1"
+alias testdns="parallel -j0 --tag dig @{}  ::: 208.67.222.222 208.67.220.220 198.153.192.1 198.153.194.1 156.154.70.1 156.154.71.1 8.8.8.8 8.8.4.4 | grep Query | sort -nk5"
+alias fixmibs=export MIBDIRS=`ls  -d /usr/share/snmp/mibs/vendors/*/ |  xargs | tr ' ' ':'` 
+export MIBDIRS=`ls  -d /usr/share/snmp/mibs/vendors/*/ |  xargs | tr ' ' ':'` 
+ls  -d /usr/share/snmp/mibs/vendors/*/ | xargs -n1 echo mibdirs +  >> /etc/snmp/snmp.conf
+#echo "mibs +ALL" >> /etc/snmp/snmp.conf
+
+EOF
+. ~/.bashrc 
+ip=`getip`
+
+cowsay -f tux "Acesse o http://$ip/zabbix"
+echo "Usuário:Admin"
+echo "Senha: zabbix"
+cowsay -f tux "Acesse o http://$ip:3000"
+echo "Usuário:admin"
+echo "Senha: admin"
+
+cowsay -f tux "No wizard do zabbix, clique em avançar em todas etapas sem alterar nada, nem mesmo as informações do MYSQL!"
+alias fixmibs="MIBDIRS=`ls  -d /usr/share/snmp/mibs/*/*/| xargs | tr ' ' ':'`"
+cowsay  "FIM"
+
+wget https://repo.zabbix.com/zabbix/5.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_5.4-1+ubuntu$(lsb_release -rs)_all.deb
+sudo dpkg -i zabbix-release_5.4-1+ubuntu$(lsb_release -rs)_all.deb
+sudo apt update
+sudo apt -y install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-sql-scripts zabbix-agent
+systemctl restart zabbix-server
+
