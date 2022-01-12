@@ -53,11 +53,12 @@ mysql -uroot --password="" -e "GRANT ALL ON zabbix.* TO 'zabbix'@'localhost'";
 mysql -uroot --password="" -e "SHOW DATABASES";
 mysql -uroot --password="" -e "SELECT host, user FROM mysql.user";
 mysql -uroot --password="" -e "SHOW GRANTS FOR 'zabbix'@'localhost'";
-figlet -f smmono9 "AGUARDE!" 
-figlet -f smmono9 "CRIANDO BANCO DE DADOS!"
-cowsay "PODE DEMORAR!" 
 
-pv zcat /usr/share/doc/zabbix-sql-scripts/mysql/server.sql.gz | gunzip | mysql -uzabbix --password="" zabbix
+figlet -f smmono9 "CRIANDO BANCO DE DADOS!"
+figlet -f smmono9  "PODE DEMORAR!" 
+figlet -f smmono9 "AGUARDE!" 
+
+zcat /usr/share/doc/zabbix-sql-scripts/mysql/server.sql.gz | pv --progress --size  `gzip -l /usr/share/doc/zabbix-sql-scripts/mysql/server.sql.gz  | sed -n 2p | awk '{print $2}'` | mysql -uzabbix --password="" zabbix
 
 a2enconf zabbix-frontend-php 
 > /var/www/html/index.html 
