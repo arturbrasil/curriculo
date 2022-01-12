@@ -56,7 +56,8 @@ mysql -uroot --password="" -e "SHOW GRANTS FOR 'zabbix'@'localhost'";
 figlet -f smmono9 "AGUARDE!" 
 figlet -f smmono9 "CRIANDO BANCO DE DADOS!"
 cowsay "PODE DEMORAR!" 
-pv /usr/share/doc/zabbix-server-mysql*/create.sql.gz| gunzip | mysql -uzabbix --password="" zabbix
+
+pv zcat /usr/share/doc/zabbix-sql-scripts/mysql/server.sql.gz | gunzip | mysql -uzabbix --password="" zabbix
 
 a2enconf zabbix-frontend-php 
 > /var/www/html/index.html 
