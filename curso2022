@@ -9,13 +9,13 @@ rm *deb*
 alias apt-get='apt-get -y'  > /dev/null 2>&1
 VERSION='6.1.18' 
 apt-get install -y linux-headers-generic build-essential dkms 
-apt install virtualbox-guest-utils virtualbox-guest-dkms -y
-sudo wget "http://download.virtualbox.org/virtualbox/$VERSION/VBoxGuestAdditions_$VERSION.iso"
-sudo mkdir /media/VBoxGuestAdditions 
-sudo mount -o loop,ro "VBoxGuestAdditions_$VERSION.iso" /media/VBoxGuestAdditions 
-sudo sh /media/VBoxGuestAdditions/VBoxLinuxAdditions.run 
-sudo umount /media/VBoxGuestAdditions   
-sudo rmdir /media/VBoxGuestAdditions
+# apt install virtualbox-guest-utils virtualbox-guest-dkms -y
+# sudo wget "http://download.virtualbox.org/virtualbox/$VERSION/VBoxGuestAdditions_$VERSION.iso"
+# sudo mkdir /media/VBoxGuestAdditions 
+# sudo mount -o loop,ro "VBoxGuestAdditions_$VERSION.iso" /media/VBoxGuestAdditions 
+# sudo sh /media/VBoxGuestAdditions/VBoxLinuxAdditions.run 
+# sudo umount /media/VBoxGuestAdditions   
+# sudo rmdir /media/VBoxGuestAdditions
 
 rm /tmp/finish
 wget https://repo.zabbix.com/zabbix/5.5/ubuntu/pool/main/z/zabbix-release/zabbix-release_5.5-1+ubuntu20.04_all.deb
