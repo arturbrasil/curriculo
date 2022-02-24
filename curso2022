@@ -74,6 +74,62 @@ systemctl restart zabbix-server zabbix-agent apache2 grafana-server
 grafana-cli plugins install alexanderzobnin-zabbix-app
 grafana-cli plugins update alexanderzobnin-zabbix-app
 
+apt install npm
+npm install pm2 -g
+npm install -g log.io
+npm install -g log.io-file-input
+mkdir -p ~/.log.io/inputs/
+touch ~/.log.io/inputs/file.json
+touch ~/.log.io/server.json
+
+cat <<'EOF' >> ~/.log.io/inputs/file.json
+{
+  "messageServer": {
+    "host": "127.0.0.1",
+    "port": 6689
+  },
+  "inputs": [
+    {
+      "source": "Linux",
+      "stream": "Zabbix Server",
+      "config": {
+        "path": "/var/log/zabbix/zabbix_server.log"
+      }
+    },
+    {
+      "source": "Linux",
+      "stream": "Zabbix Agent",
+      "config": {
+        "path": "/var/log/zabbix/zabbix_agentd.log"
+      }
+    }
+  ]
+}
+EOF
+
+cat <<'EOF' >> ~/.log.io/server.json
+{
+  "messageServer": {
+    "port": 6689,
+    "host": "127.0.0.1"
+  },
+  "httpServer": {
+    "port": 6688,
+    "host": "0.0.0.0"
+  },
+  "debug": false,
+  "basicAuth": {
+    "realm": "abc123xyz",
+    "users": {
+      "aluno": "logs"
+    }
+  }
+}
+EOF
+
+
+ pm2 start log.io-server
+ pm2 start log.io-file-input
 iptables -A INPUT -p tcp -s localhost --dport 3306 -j ACCEPT 
 iptables -A INPUT -p tcp --dport 3306 -j DROP 
 touch /tmp/finish 
