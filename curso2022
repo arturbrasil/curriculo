@@ -74,7 +74,7 @@ systemctl restart zabbix-server zabbix-agent apache2 grafana-server
 grafana-cli plugins install alexanderzobnin-zabbix-app
 grafana-cli plugins update alexanderzobnin-zabbix-app
 
-apt install npm
+apt install npm -y
 npm install pm2 -g
 npm install -g log.io
 npm install -g log.io-file-input
