@@ -15,7 +15,7 @@ title= " " +  sys.argv[2] + "\r\n"
 msg= '' + sys.argv[3] + ""
 playload = title + msg
 
-with open(r'.credentials.yml') as file:
+with open(r'/usr/lib/zabbix/alertscripts/.credentials.yml') as file:
     credentials = yaml.load(file)
 session = credentials['user']
 
