@@ -16,7 +16,7 @@ msg= '' + sys.argv[3] + ""
 playload = title + msg
 
 with open(r'/usr/lib/zabbix/alertscripts/.credentials.yml') as file:
-    credentials = yaml.load(file)
+    credentials = yaml.full_load(file)
 session = credentials['user']
 
 response = requests.post('http://alertas.artistasdamonitoracao.com.br:3333/sendToGroup', headers= {'Accept': 'application/json','Content-Type': 'application/json'}, json={'sessionName': session,'groupID': groupID, 'text': playload})
