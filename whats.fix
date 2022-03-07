@@ -1,4 +1,6 @@
+apt install python3-pip -y
 pip3 install pyyaml
+
 cat <<'EOF' > /usr/lib/zabbix/alertscripts/.credentials.yml
 user : arturbrasil@gmail.com 
 EOF
@@ -22,5 +24,31 @@ session = credentials['user']
 response = requests.post('http://alertas.artistasdamonitoracao.com.br:3333/sendToGroup', headers= {'Accept': 'application/json','Content-Type': 'application/json'}, json={'sessionName': session,'groupID': groupID, 'text': playload})
 print(session + " :" + response.text)
 EOF
+chmod +x /usr/lib/zabbix/alertscripts/sendgroup
+ln -s /usr/lib/zabbix/alertscripts/sendgroup pip3 install pyyaml
+cat <<'EOF' > /usr/lib/zabbix/alertscripts/.credentials.yml
+user : arturbrasil@gmail.com 
+EOF
+
+cat <<'EOF' > /usr/lib/zabbix/alertscripts/sendgroup
+#!/usr/bin/python3
+import requests
+import sys
+import yaml
+#session= sys.argv[1]
+yaml.warnings({'YAMLLoadWarning': False})
+groupID= sys.argv[1]
+title= " " +  sys.argv[2] + "\r\n"
+msg= '' + sys.argv[3] + ""
+playload = title + msg
+
+with open(r'/usr/lib/zabbix/alertscripts/.credentials.yml') as file:
+    credentials = yaml.full_load(file)
+session = credentials['user']
+
+response = requests.post('http://alertas.artistasdamonitoracao.com.br:3333/sendToGroup', headers= {'Accept': 'application/json','Content-Type': 'application/json'}, json={'sessionName': session,'groupID': groupID, 'text': playload})
+print(session + " :" + response.text)
+EOF
+rm /usr/sbin/wasendgroup
 chmod +x /usr/lib/zabbix/alertscripts/sendgroup
 ln -s /usr/lib/zabbix/alertscripts/sendgroup /usr/sbin/wasendgroup
