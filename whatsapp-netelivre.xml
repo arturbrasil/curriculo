@@ -4,19 +4,16 @@
     <date>2022-02-21T14:02:37Z</date>
     <media_types>
         <media_type>
-            <name>WHATSAPP NOC_JBS_BRASA</name>
+            <name>WHATSAPP - NOME DO SEU GRUPO AQUI</name>
             <type>SCRIPT</type>
             <script_name>sendgroup</script_name>
             <parameters>
-                <parameter>5524993185154-1635371761</parameter>
+                <parameter>ID_DO_GRUPO_AQUI</parameter>
                 <parameter>{ALERT.SUBJECT}</parameter>
                 <parameter>{ALERT.MESSAGE}</parameter>
             </parameters>
             <max_sessions>0</max_sessions>
-            <description>5524993185154-1635371761  NOC_JBS_BRASA
-
-5522992784395
-5524993185154</description>
+            <description></description>
             <message_templates>
                 <message_template>
                     <event_source>TRIGGERS</event_source>
