@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.4</version>
+    <date>2022-02-21T14:02:37Z</date>
+    <media_types>
+        <media_type>
+            <name>WHATSAPP NOC_JBS_BRASA</name>
+            <type>SCRIPT</type>
+            <script_name>sendgroup</script_name>
+            <parameters>
+                <parameter>5524993185154-1635371761</parameter>
+                <parameter>{ALERT.SUBJECT}</parameter>
+                <parameter>{ALERT.MESSAGE}</parameter>
+            </parameters>
+            <max_sessions>0</max_sessions>
+            <description>5524993185154-1635371761  NOC_JBS_BRASA
+
+5522992784395
+5524993185154</description>
+            <message_templates>
+                <message_template>
+                    <event_source>TRIGGERS</event_source>
+                    <operation_mode>PROBLEM</operation_mode>
+                    <subject>Problem: {EVENT.NAME}</subject>
+                    <message>Problem started at {EVENT.TIME} on {EVENT.DATE}
+Problem name: {EVENT.NAME}
+Host: {HOST.NAME}
+Severity: {EVENT.SEVERITY}
+Operational data: {EVENT.OPDATA}
+Original problem ID: {EVENT.ID}
+{TRIGGER.URL}</message>
+                </message_template>
+                <message_template>
+                    <event_source>TRIGGERS</event_source>
+                    <operation_mode>RECOVERY</operation_mode>
+                    <subject>Resolved in {EVENT.DURATION}: {EVENT.NAME}</subject>
+                    <message>Problem has been resolved at {EVENT.RECOVERY.TIME} on {EVENT.RECOVERY.DATE}
+Problem name: {EVENT.NAME}
+Problem duration: {EVENT.DURATION}
+Host: {HOST.NAME}
+Severity: {EVENT.SEVERITY}
+Original problem ID: {EVENT.ID}
+{TRIGGER.URL}</message>
+                </message_template>
+            </message_templates>
+        </media_type>
+        <media_type>
+            <name>WHATSAPP NOC_JBS_GERAL</name>
+            <type>SCRIPT</type>
+            <script_name>sendgroup</script_name>
+            <parameters>
+                <parameter>553192835210-1635445712</parameter>
+                <parameter>{ALERT.SUBJECT}</parameter>
+                <parameter>{ALERT.MESSAGE}</parameter>
+            </parameters>
+            <max_sessions>0</max_sessions>
+            <description>NOC_JBS_GERAL  553192835210-1635445712</description>
+            <message_templates>
+                <message_template>
+                    <event_source>TRIGGERS</event_source>
+                    <operation_mode>PROBLEM</operation_mode>
+                    <subject>Problem: {EVENT.NAME}</subject>
+                    <message>Problem started at {EVENT.TIME} on {EVENT.DATE}
+Problem name: {EVENT.NAME}
+Host: {HOST.NAME}
+Severity: {EVENT.SEVERITY}
+Operational data: {EVENT.OPDATA}
+Original problem ID: {EVENT.ID}
+{TRIGGER.URL}</message>
+                </message_template>
+                <message_template>
+                    <event_source>TRIGGERS</event_source>
+                    <operation_mode>RECOVERY</operation_mode>
+                    <subject>Resolved in {EVENT.DURATION}: {EVENT.NAME}</subject>
+                    <message>Problem has been resolved at {EVENT.RECOVERY.TIME} on {EVENT.RECOVERY.DATE}
+Problem name: {EVENT.NAME}
+Problem duration: {EVENT.DURATION}
+Host: {HOST.NAME}
+Severity: {EVENT.SEVERITY}
+Original problem ID: {EVENT.ID}
+{TRIGGER.URL}</message>
+                </message_template>
+            </message_templates>
+        </media_type>
+        <media_type>
+            <name>WHATSAPP NOC_JBS_NETE_LIVRE</name>
+            <type>SCRIPT</type>
+            <script_name>sendgroup</script_name>
+            <parameters>
+                <parameter>553192835210-1635445691</parameter>
+                <parameter>{ALERT.SUBJECT}</parameter>
+                <parameter>{ALERT.MESSAGE}</parameter>
+            </parameters>
+            <max_sessions>0</max_sessions>
+            <description>NOC_JBS_NETE_LIVRE  553192835210-1635445691</description>
+            <message_templates>
+                <message_template>
+                    <event_source>TRIGGERS</event_source>
+                    <operation_mode>PROBLEM</operation_mode>
+                    <subject>Problem: {EVENT.NAME}</subject>
+                    <message>Problem started at {EVENT.TIME} on {EVENT.DATE}
+Problem name: {EVENT.NAME}
+Host: {HOST.NAME}
+Severity: {EVENT.SEVERITY}
+Operational data: {EVENT.OPDATA}
+Original problem ID: {EVENT.ID}
+{TRIGGER.URL}</message>
+                </message_template>
+                <message_template>
+                    <event_source>TRIGGERS</event_source>
+                    <operation_mode>RECOVERY</operation_mode>
+                    <subject>Resolved in {EVENT.DURATION}: {EVENT.NAME}</subject>
+                    <message>Problem has been resolved at {EVENT.RECOVERY.TIME} on {EVENT.RECOVERY.DATE}
+Problem name: {EVENT.NAME}
+Problem duration: {EVENT.DURATION}
+Host: {HOST.NAME}
+Severity: {EVENT.SEVERITY}
+Original problem ID: {EVENT.ID}
+{TRIGGER.URL}</message>
+                </message_template>
+            </message_templates>
+        </media_type>
+    </media_types>
+</zabbix_export>
