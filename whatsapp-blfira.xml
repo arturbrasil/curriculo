@@ -4,16 +4,16 @@
     <date>2022-02-21T14:09:53Z</date>
     <media_types>
         <media_type>
-            <name>WHATSAPP NOME_DO_SEU_GRUPO_AQUI</name>
+            <name>WHATSAPP ALERTAS ZABBIX</name>
             <type>SCRIPT</type>
             <script_name>sendgroup</script_name>
             <parameters>
-                <parameter>ID_DO_SEU_GRUPO_AQUI</parameter>
+                <parameter>120363040634039576</parameter>
                 <parameter>{ALERT.SUBJECT}</parameter>
                 <parameter>{ALERT.MESSAGE}</parameter>
             </parameters>
             <max_sessions>0</max_sessions>
-            <description>.</description>
+            <description>120363040634039576</description>
             <message_templates>
                 <message_template>
                     <event_source>TRIGGERS</event_source>
