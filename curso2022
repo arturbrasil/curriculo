@@ -82,7 +82,7 @@ mkdir -p ~/.log.io/inputs/
 touch ~/.log.io/inputs/file.json
 touch ~/.log.io/server.json
 
-cat <<'EOF' >> ~/.log.io/inputs/file.json
+cat <<'EOF' > ~/.log.io/inputs/file.json
 {
   "messageServer": {
     "host": "127.0.0.1",
@@ -107,7 +107,7 @@ cat <<'EOF' >> ~/.log.io/inputs/file.json
 }
 EOF
 
-cat <<'EOF' >> ~/.log.io/server.json
+cat <<'EOF' > ~/.log.io/server.json
 {
   "messageServer": {
     "port": 6689,
