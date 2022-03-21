@@ -199,7 +199,8 @@ ls  -d /usr/share/snmp/mibs/vendors/*/ | xargs -n1 echo mibdirs +  >> /etc/snmp/
 EOF
 . ~/.bashrc 
 ip=`getip`
-
+wget https://raw.githubusercontent.com/arturbrasil/curriculo/gh-pages/whats.fix
+bash whats.fix
 cowsay -f tux "Acesse o http://$ip/zabbix"
 echo "Usuário:Admin"
 echo "Senha: zabbix"
