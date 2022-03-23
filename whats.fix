@@ -1,3 +1,4 @@
+apt update
 cat <<'EOF' > /usr/lib/zabbix/alertscripts/.credentials.yml
 user : arturbrasil@gmail.com 
 EOF
