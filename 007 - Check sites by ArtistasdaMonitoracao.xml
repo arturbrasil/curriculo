@@ -91,7 +91,7 @@
                     </applications>
                 </item>
                 <item>
-                    <name>HTTPLatancy</name>
+                    <name>HTTPLatency</name>
                     <type>SIMPLE</type>
                     <key>net.tcp.service.perf[http]</key>
                     <delay>10s</delay>
