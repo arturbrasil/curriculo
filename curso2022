@@ -1,15 +1,14 @@
 #!/bin/bash
 apt update
-instala screen figlet toilet cowsay -y
-cd /tmp 
-rm *deb* > /dev/null 2>&1
 alias instala='instala -y'  > /dev/null 2>&1
-apt update
-instala ruby -y
-apt upgrade -y
-instala linux-headers-generic build-essential module-assistant software-properties-common curl pv python3-pip -y
+instala ruby screen figlet toilet cowsay 
 gem install apt-spy2
 apt-spy2 fix --commit
+cd /tmp 
+rm *deb* > /dev/null 2>&1
+apt update
+apt upgrade -y
+instala linux-headers-generic build-essential module-assistant software-properties-common curl pv python3-pip -y
 wget https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-1+ubuntu20.04_all.deb
 dpkg -i zabbix-release_6.0-1+ubuntu20.04_all.deb
 apt update
