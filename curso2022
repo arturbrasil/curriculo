@@ -46,9 +46,9 @@ mysql -uroot --password="" -e "SHOW DATABASES";
 mysql -uroot --password="" -e "SELECT host, user FROM mysql.user";
 mysql -uroot --password="" -e "SHOW GRANTS FOR 'zabbix'@'localhost'";
 
-figlet -f smmono9 "CRIANDO BANCO DE DADOS!" | lolcat
-figlet -f smmono9  "PODE DEMORAR!"  | lolcat
-figlet -f smmono9 "AGUARDE!"  | lolcat
+figlet -w 100 -f smmono9 "CRIANDO BANCO DE DADOS!" | lolcat
+figlet -w 100 -f smmono9  "PODE DEMORAR!"  | lolcat
+figlet -w 100 -f smmono9 "AGUARDE!"  | lolcat
 
 zcat /usr/share/doc/zabbix-sql-scripts/mysql/server.sql.gz | pv --progress --size  `gzip -l /usr/share/doc/zabbix-sql-scripts/mysql/server.sql.gz  | sed -n 2p | awk '{print $2}'` | mysql -uzabbix --password="" zabbix
 
