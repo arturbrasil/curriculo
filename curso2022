@@ -194,6 +194,7 @@ systemctl enable zabbix-server zabbix-agent apache2
 systemctl enable grafana-server
 touch /tmp/finish 
 ip=`ip a | grep -oP '(?<=inet |addr:)(?:\d+\.){3}\d+' | grep -v 127.0.0.1`
+clear
 echo -e "\n\tZabbix: http://$ip/zabbix \tUsuário: Admin - Senha: zabbix \n\tGrafana: http://$ip:3000 \tUsuário: admin - Senha: admin \n\tLogs: http://$ip:6688 \tUsuário: aluno - Senha: logs" | boxes -d spring -a hc -p h8 |lolcat  
 cowsay -f tux "No wizard do zabbix, clique em avançar em todas etapas sem alterar nada, nem mesmo as informações do MYSQL!" | lolcat
 #lvresize -t -v -l +100%FREE /dev/mapper/ubuntu–vg-ubuntu–lv
