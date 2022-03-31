@@ -14,6 +14,7 @@ apt update
 clear
 figlet -c Artistas da Monitoracao
 rm /tmp/finish
+apt install -y mysql-server mysql-client 
 apt install -y zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-sql-scripts zabbix-agent 
 
 apt install -y locales   > /dev/null 2>&1
