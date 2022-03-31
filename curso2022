@@ -1,6 +1,9 @@
 #!/bin/bash
+toilet -w 100 -f smmono9 Artistas da Monitoração | lolcat
+toilet -w 82 -f mini Iniciando... | lolcat
+
 apt update
-apt install -y ruby screen figlet toilet cowsay   > /dev/null 2>&1
+apt install -y ruby screen figlet toilet cowsay lolcat boxes  > /dev/null 2>&1
 gem install apt-spy2
 apt-spy2 fix --commit
 cd /tmp 
@@ -12,11 +15,11 @@ wget https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix
 dpkg -i zabbix-release_6.0-1+ubuntu20.04_all.deb
 apt update
 clear
-figlet -c Artistas da Monitoracao
+toilet -w 82 -f mini Artistas da Monitoração | lolcat
+toilet -w 100 -f smmono9 Artistas da Monitoração | lolcat
 rm /tmp/finish
-apt install -y mysql-server mysql-client 
+apt install -y mysql-server mysql-client
 apt install -y zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-sql-scripts zabbix-agent 
-
 apt install -y locales   > /dev/null 2>&1
 locale-gen pt_BR.UTF-8 
 m-a prepare 
@@ -43,9 +46,9 @@ mysql -uroot --password="" -e "SHOW DATABASES";
 mysql -uroot --password="" -e "SELECT host, user FROM mysql.user";
 mysql -uroot --password="" -e "SHOW GRANTS FOR 'zabbix'@'localhost'";
 
-figlet -f smmono9 "CRIANDO BANCO DE DADOS!"
-figlet -f smmono9  "PODE DEMORAR!" 
-figlet -f smmono9 "AGUARDE!" 
+figlet -f smmono9 "CRIANDO BANCO DE DADOS!" | lolcat
+figlet -f smmono9  "PODE DEMORAR!"  | lolcat
+figlet -f smmono9 "AGUARDE!"  | lolcat
 
 zcat /usr/share/doc/zabbix-sql-scripts/mysql/server.sql.gz | pv --progress --size  `gzip -l /usr/share/doc/zabbix-sql-scripts/mysql/server.sql.gz  | sed -n 2p | awk '{print $2}'` | mysql -uzabbix --password="" zabbix
 
@@ -62,7 +65,7 @@ systemctl restart zabbix-server zabbix-agent apache2 grafana-server
 
 grafana-cli plugins install alexanderzobnin-zabbix-app
 grafana-cli plugins update alexanderzobnin-zabbix-app
-figlet -f smmono9 "CRIANDO SERVIDOR DE LOGS!"
+figlet -f smmono9 "CRIANDO SERVIDOR DE LOGS!" | lolcat
 
 apt install -y npm  
 npm install pm2 -g  > /dev/null 2>&1
@@ -161,7 +164,6 @@ cat dash-redes-sociais.json | jq '. * {overwrite: true, dashboard: {id: null}}' 
     $grafana_host/api/dashboards/import  -d  @- ;
 
 
-
 #FIX CACHESIZE
 #sed s/'# CacheSize=8M'/'CacheSize=16M'/g -i /etc/zabbix/zabbix_server.conf
 systemctl enable zabbix-server zabbix-agent apache2 grafana-server
@@ -190,21 +192,11 @@ wget https://raw.githubusercontent.com/arturbrasil/curriculo/gh-pages/whats.fix
 bash whats.fix
 systemctl enable zabbix-server zabbix-agent apache2 
 systemctl enable grafana-server
-
-ip=`ip a | grep -oP '(?<=inet |addr:)(?:\d+\.){3}\d+' | grep -v 127.0.0.1`
-cowsay -f tux "Acesse o http://$ip/zabbix"
-echo "Usuário:Admin"
-echo "Senha: zabbix"
-cowsay -f tux "Acesse o http://$ip:3000"
-echo "Usuário:admin"
-echo "Senha: admin"
-cowsay -f tux "Acesse o http://$ip:6688"
-echo "Usuário:aluno"
-echo "Senha: logs"
-cowsay -f tux "No wizard do zabbix, clique em avançar em todas etapas sem alterar nada, nem mesmo as informações do MYSQL!"
 touch /tmp/finish 
+ip=`ip a | grep -oP '(?<=inet |addr:)(?:\d+\.){3}\d+' | grep -v 127.0.0.1`
+echo -e "\n\tZabbix: http://$ip/zabbix \tUsuário: Admin - Senha: zabbix \n\tGrafana: http://$ip:3000 \tUsuário: admin - Senha: admin \n\tLogs: http://$ip:6688 \tUsuário: aluno - Senha: logs" | boxes -d spring -a hc -p h8 |lolcat  
+cowsay -f tux "No wizard do zabbix, clique em avançar em todas etapas sem alterar nada, nem mesmo as informações do MYSQL!" | lolcat
 #lvresize -t -v -l +100%FREE /dev/mapper/ubuntu–vg-ubuntu–lv
 #lvresize -v -l +100%FREE /dev/mapper/ubuntu–vg-ubuntu–lv
 #resize2fs -p /dev/mapper/ubuntu–vg-ubuntu–lv
-cowsay -f tux  "FIM"
-
+toilet -w 82 -f mini FIM. | lolcat
