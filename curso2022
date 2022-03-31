@@ -65,7 +65,7 @@ systemctl restart zabbix-server zabbix-agent apache2 grafana-server
 
 grafana-cli plugins install alexanderzobnin-zabbix-app
 grafana-cli plugins update alexanderzobnin-zabbix-app
-figlet -f smmono9 "CRIANDO SERVIDOR DE LOGS!" | lolcat
+figlet -w 100 -f smmono9 "CRIANDO SERVIDOR DE LOGS!" | lolcat
 
 apt install -y npm  
 npm install pm2 -g  > /dev/null 2>&1
@@ -132,7 +132,7 @@ systemctl status mysql | grep Active
 systemctl status zabbix-server | grep Active
 systemctl status zabbix-agent | grep Active
 systemctl status grafana-server | grep Active
-
+figlet -w 100 -f smmono9 "INSTALANDO ACERVO DE MIBs!" | lolcat
 cd /usr/share/snmp/mibs
 git clone https://github.com/arturbrasil/vendors.git
 
@@ -199,4 +199,4 @@ cowsay -f tux "No wizard do zabbix, clique em avançar em todas etapas sem alter
 #lvresize -t -v -l +100%FREE /dev/mapper/ubuntu–vg-ubuntu–lv
 #lvresize -v -l +100%FREE /dev/mapper/ubuntu–vg-ubuntu–lv
 #resize2fs -p /dev/mapper/ubuntu–vg-ubuntu–lv
-toilet -w 82 -f mini FIM. | lolcat
+toilet -w 100 -f mini FIM. | lolcat
