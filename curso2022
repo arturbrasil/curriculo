@@ -1,43 +1,32 @@
 #!/bin/bash
 apt update
-apt install screen figlet toilet cowsay -y
-
-figlet -c Artistas da Monitoracao
-
+instala screen figlet toilet cowsay -y
 cd /tmp 
-rm *deb* 
-alias apt-get='apt-get -y'  > /dev/null 2>&1
-VERSION='6.1.18' 
-apt-get install -y linux-headers-generic build-essential dkms 
-# apt install virtualbox-guest-utils virtualbox-guest-dkms -y
-# sudo wget "http://download.virtualbox.org/virtualbox/$VERSION/VBoxGuestAdditions_$VERSION.iso"
-# sudo mkdir /media/VBoxGuestAdditions 
-# sudo mount -o loop,ro "VBoxGuestAdditions_$VERSION.iso" /media/VBoxGuestAdditions 
-# sudo sh /media/VBoxGuestAdditions/VBoxLinuxAdditions.run 
-# sudo umount /media/VBoxGuestAdditions   
-# sudo rmdir /media/VBoxGuestAdditions
-
-rm /tmp/finish
+rm *deb* > /dev/null 2>&1
+alias instala='instala -y'  > /dev/null 2>&1
+apt update
+instala ruby -y
+apt upgrade -y
+instala linux-headers-generic build-essential module-assistant software-properties-common curl pv python3-pip -y
+gem install apt-spy2
+apt-spy2 fix --commit
 wget https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-1+ubuntu20.04_all.deb
 dpkg -i zabbix-release_6.0-1+ubuntu20.04_all.deb
 apt update
-apt update
-apt install mysql-server -y
-apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-sql-scripts zabbix-agent -y
+clear
+figlet -c Artistas da Monitoracao
+rm /tmp/finish
+instala zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-sql-scripts zabbix-agent
 
-apt install build-essential module-assistant pv -y
-apt install locales -y 
-
+instala locales 
 locale-gen pt_BR.UTF-8 
 m-a prepare 
 # dpkg-reconfigure locales
 update-locale LANG=pt_BR.UTF-8 
 
-apt install snmp snmpd -y  
-apt install snmp-mibs-downloader vim -y  
-apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-agent -y
-
-
+instala snmp snmpd   
+instala snmp-mibs-downloader vim  
+mkdir -p $HOME/.snmp
 # apt-get -y install lsb-release gnupg &&\
 # wget -O - https://repo.nperf.com/apt/conf/nperf-server.gpg.key | apt-key add - &&\
 # echo "deb [arch=amd64] http://repo.nperf.com/apt $(lsb_release -sc) main non-free" >> /etc/apt/sources.list.d/nperf.list &&\
@@ -74,8 +63,9 @@ systemctl restart zabbix-server zabbix-agent apache2 grafana-server
 
 grafana-cli plugins install alexanderzobnin-zabbix-app
 grafana-cli plugins update alexanderzobnin-zabbix-app
+figlet -f smmono9 "CRIANDO SERVIDOR DE LOGS!"
 
-apt install npm -y
+instala npm 
 npm install pm2 -g
 npm install -g log.io
 npm install -g log.io-file-input
@@ -129,8 +119,8 @@ cat <<'EOF' > ~/.log.io/server.json
 EOF
 
 
- pm2 start log.io-server
- pm2 start log.io-file-input
+pm2 start log.io-server
+pm2 start log.io-file-input
 iptables -A INPUT -p tcp -s localhost --dport 3306 -j ACCEPT 
 iptables -A INPUT -p tcp --dport 3306 -j DROP 
 touch /tmp/finish 
@@ -143,9 +133,6 @@ systemctl status grafana-server | grep Active
 
 cd /usr/share/snmp/mibs
 git clone https://github.com/arturbrasil/vendors.git
-apt-get install snmpd
-mkdir -p $HOME/.snmp
-
 
 #for i in `ls -d /usr/share/snmp/mibs/vendors/*/`; do
 # echo "mibdirs +$i" > $HOME/.snmp/snmp.conf
@@ -166,7 +153,7 @@ done
 grafana_host="http://localhost:3000"
 grafana_cred="admin:admin"
 grafana_datasource="zabbix"
-apt install parallel jq curl httpie nmap ncat dnsutils unzip snmp-mibs-downloader htop speedtest-cli iotop nmap silversearcher-ag ngrep -y 
+instala parallel jq curl httpie nmap ncat dnsutils unzip snmp-mibs-downloader htop speedtest-cli iotop nmap silversearcher-ag ngrep -y 
 snap install gotop
 wget https://raw.githubusercontent.com/arturbrasil/curriculo/gh-pages/dash-redes-sociais.json
 
@@ -213,5 +200,9 @@ cowsay -f tux "No wizard do zabbix, clique em avançar em todas etapas sem alter
 alias fixmibs="MIBDIRS=`ls  -d /usr/share/snmp/mibs/*/*/| xargs | tr ' ' ':'`"
 systemctl enable zabbix-server zabbix-agent apache2 
 systemctl enable grafana-server
+
+#lvresize -t -v -l +100%FREE /dev/mapper/ubuntu–vg-ubuntu–lv
+#lvresize -v -l +100%FREE /dev/mapper/ubuntu–vg-ubuntu–lv
+#resize2fs -p /dev/mapper/ubuntu–vg-ubuntu–lv
 cowsay  "FIM"
 
