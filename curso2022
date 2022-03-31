@@ -187,6 +187,7 @@ EOF
 ip=`getip`
 wget https://raw.githubusercontent.com/arturbrasil/curriculo/gh-pages/whats.fix
 bash whats.fix
+clear
 cowsay -f tux "Acesse o http://$ip/zabbix"
 echo "Usuário:Admin"
 echo "Senha: zabbix"
@@ -195,7 +196,7 @@ echo "Usuário:admin"
 echo "Senha: admin"
 cowsay -f tux "Acesse o http://$ip:6688"
 echo "Usuário:aluno"
-echo "Senha: logs"
+echo "Senha:logs"
 
 
 cowsay -f tux "No wizard do zabbix, clique em avançar em todas etapas sem alterar nada, nem mesmo as informações do MYSQL!"
