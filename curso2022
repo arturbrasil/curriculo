@@ -184,10 +184,13 @@ ls  -d /usr/share/snmp/mibs/vendors/*/ | xargs -n1 echo mibdirs +  >> /etc/snmp/
 
 EOF
 . ~/.bashrc 
-ip=`getip`
+alias fixmibs="MIBDIRS=`ls  -d /usr/share/snmp/mibs/*/*/| xargs | tr ' ' ':'`"
 wget https://raw.githubusercontent.com/arturbrasil/curriculo/gh-pages/whats.fix
 bash whats.fix
-clear
+systemctl enable zabbix-server zabbix-agent apache2 
+systemctl enable grafana-server
+
+ip=`ip a | grep -oP '(?<=inet |addr:)(?:\d+\.){3}\d+' | grep -v 127.0.0.1`
 cowsay -f tux "Acesse o http://$ip/zabbix"
 echo "Usuário:Admin"
 echo "Senha: zabbix"
@@ -196,13 +199,8 @@ echo "Usuário:admin"
 echo "Senha: admin"
 cowsay -f tux "Acesse o http://$ip:6688"
 echo "Usuário:aluno"
-echo "Senha:logs"
-
-
+echo "Senha: logs"
 cowsay -f tux "No wizard do zabbix, clique em avançar em todas etapas sem alterar nada, nem mesmo as informações do MYSQL!"
-alias fixmibs="MIBDIRS=`ls  -d /usr/share/snmp/mibs/*/*/| xargs | tr ' ' ':'`"
-systemctl enable zabbix-server zabbix-agent apache2 
-systemctl enable grafana-server
 touch /tmp/finish 
 #lvresize -t -v -l +100%FREE /dev/mapper/ubuntu–vg-ubuntu–lv
 #lvresize -v -l +100%FREE /dev/mapper/ubuntu–vg-ubuntu–lv
