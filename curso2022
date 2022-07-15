@@ -5,7 +5,7 @@ apt install -y ruby screen figlet toilet cowsay lolcat boxes  > /dev/null 2>&1
 toilet -w 100 -f smmono9 Artistas da Monitoração | lolcat
 toilet -w 82 -f mini Iniciando... | lolcat
 gem install apt-spy2
-apt-spy2 fix --commit
+# apt-spy2 fix --commit
 cd /tmp 
 rm *deb* > /dev/null 2>&1
 apt update
