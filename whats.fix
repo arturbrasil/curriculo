@@ -1,6 +1,33 @@
+# Instalando NVM
+
+# Instalando node
+
+# Instalando NPM
+
+# Npm install
+
+
+#Instalando dependencias:
+
 apt install python3-pip -y
 apt install  httpie -y
 pip3 install pyyaml 
+
+#Iniciando a sessão:
+
+http get http://alertas.artistasdamonitoracao.com.br:3333/start   sessionName=='arturbrasil@gmail.com' 
+
+#Obtendo Mensagens não lidas: 
+
+http get http://alertas.artistasdamonitoracao.com.br:3333/getAllChatsNewMsg sessionName=='arturbrasil@gmail.com' 
+
+#Enviando mensagem com Negrito e Emoji:
+http -v post http://alertas.artistasdamonitoracao.com.br:3333/sendText <<< '{"sessionName": "arturbrasil@gmail.com","number": "5522992784395","text": "Oi! Enviamos via *API*📊. Veja eu também posso enviar emojis: ✅🫡. Até mais 😘"}'
+
+#Enviando audio mp3:
+http -v post http://alertas.artistasdamonitoracao.com.br:3333/sendVoice <<< '{"sessionName": "arturbrasil@gmail.com","number": "5522992784395","voice": "audio1.mp3"}'
+
+
 
 apt update
 cat <<'EOF' > /usr/lib/zabbix/alertscripts/.credentials.yml
@@ -27,8 +54,13 @@ session = credentials['user']
 url = credentials['url']
 porta = credentials['porta']
 
-response = requests.post('' + url + ': ' + porta + '/sendText', headers= {'Accept': 'application/json','Content-Type': 'application/json'}, json={'sessionName': session,'number': number, 'text': playload})
+response = requests.post('' + url + ':' + porta + '/sendText', headers= {'Accept': 'application/json','Content-Type': 'application/json'}, json={'sessionName': session,'number': number, 'text': playload})
 print(session + " :" + response.text)
 EOF
+
 chmod +x /usr/lib/zabbix/alertscripts/whatssendtouser
-ln -s /usr/lib/zabbix/alertscripts/whatssendtouser
+ln -s /usr/lib/zabbix/alertscripts/whatssendtouser /usr/bin/whatssendtouser
+
+
+# Teste o envio via API:
+# whatssendtouser 5522992784395 "TESTE DE ENVIO" "Oi! Enviamos via *API*📊. Veja eu também posso enviar emojis: ✅🫡"
