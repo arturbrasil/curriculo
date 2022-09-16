@@ -3,6 +3,7 @@
 
 apt install python3-pip -y
 apt install  httpie -y
+pip3 install httpie
 pip3 install pyyaml 
 
 #Iniciando a sessão:
