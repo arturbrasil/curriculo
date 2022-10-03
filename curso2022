@@ -15,8 +15,8 @@ apt install -y linux-headers-generic build-essential module-assistant software-p
 wget https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-2%2Bubuntu22.04_all.deb
 dpkg -i zabbix-release_6.2-2+ubuntu22.04_all.deb
 apt update
-apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-sql-scripts zabbix-agent
-
+apt install zabbix-server-mysql zabbix-frontend-php  zabbix-agent -y
+apt instll zabbix-sql-scripts zabbix-apache-conf  -y
 
 clear
 toilet -w 82 -f mini Artistas da Monitoração | lolcat
