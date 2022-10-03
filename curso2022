@@ -59,9 +59,13 @@ figlet -w 100 -f smmono9 "AGUARDE!"  | lolcat
 
 zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | pv --progress --size  `gzip -l /usr/share/zabbix-sql-scripts/mysql/server.sql.gz  | sed -n 2p | awk '{print $2}'` | mysql --default-character-set=utf8mb4 -uroot --password="" zabbix
 mysql -uroot --password="" -e "set global log_bin_trust_function_creators = 0";
+
+apt install php-mysql
 a2enconf zabbix-frontend-php 
-systemctl restart zabbix-server zabbix-agent apache2
-systemctl enable zabbix-server zabbix-agent apache2
+sudo systemctl restart zabbix-server zabbix-agent apache2
+sudo systemctl enable zabbix-server zabbix-agent apache2
+
+
 > /var/www/html/index.html 
 sed -i 's/# php_value date.timezone Europe\/Riga/php_value date.timezone America\/Sao_Paulo/g' /etc/apache2/conf-enabled/zabbix.conf
 
