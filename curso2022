@@ -45,11 +45,11 @@ sudo apt-get install -y nodejs
 
 export DEBIAN_FRONTEND=noninteractive
 
-mysql -uroot --password="" -e "CREATE DATABASE zabbix CHARACTER SET utf8 COLLATE utf8_bin"; 
+mysql -uroot --password="" -e "create database zabbix character set utf8mb4 collate utf8mb4_bin"; 
 mysql -uroot --password="" -e "CREATE USER 'zabbix'@'localhost'";
 mysql -uroot --password="" -e "GRANT ALL ON zabbix.* TO 'zabbix'@'localhost'";
 
-mysql -uroot --password="" -e "SHOW DATABASES";
+mysql -uroot --password="" -e "set global log_bin_trust_function_creators = 1";
 mysql -uroot --password="" -e "SELECT host, user FROM mysql.user";
 mysql -uroot --password="" -e "SHOW GRANTS FOR 'zabbix'@'localhost'";
 
@@ -57,9 +57,11 @@ figlet -w 100 -f smmono9 "CRIANDO BANCO DE DADOS!" | lolcat
 figlet -w 100 -f smmono9  "PODE DEMORAR!"  | lolcat
 figlet -w 100 -f smmono9 "AGUARDE!"  | lolcat
 
-zcat /usr/share/doc/zabbix-sql-scripts/mysql/server.sql.gz | pv --progress --size  `gzip -l /usr/share/doc/zabbix-sql-scripts/mysql/server.sql.gz  | sed -n 2p | awk '{print $2}'` | mysql -uroot --password="" zabbix
-
+zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | pv --progress --size  `gzip -l /usr/share/zabbix-sql-scripts/mysql/server.sql.gz  | sed -n 2p | awk '{print $2}'` | mysql --default-character-set=utf8mb4 -uroot --password="" zabbix
+mysql -uroot --password="" -e "set global log_bin_trust_function_creators = 0";
 a2enconf zabbix-frontend-php 
+systemctl restart zabbix-server zabbix-agent apache2
+systemctl enable zabbix-server zabbix-agent apache2
 > /var/www/html/index.html 
 sed -i 's/# php_value date.timezone Europe\/Riga/php_value date.timezone America\/Sao_Paulo/g' /etc/apache2/conf-enabled/zabbix.conf
 
