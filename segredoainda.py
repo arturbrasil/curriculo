@@ -70,7 +70,7 @@ def cadastra_fabricante(fabricante):
 	#print(group_id)
 
 
-f = csv.reader(open('GILMAR.csv'), delimiter=',')
+f = csv.reader(open('modelo.csv'), delimiter=',')
 for [nome,ip, grupo, fabricante, modelo, tipo, snmp, latitude, longitude, status, local] in f:
 
 	if fabricante == 'Mikrotik':
