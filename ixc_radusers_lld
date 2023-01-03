@@ -1,0 +1,42 @@
+#!/usr/bin/python3
+import requests
+import base64
+import json
+import datetime
+import logging
+host = 'ixc.redeideiatelecom.com.br'
+token = "75:60d3dade43d209091d359668c57ef9714194f78765ac683a502da1ed72245ced".encode('utf-8')
+url = "https://{}/webservice/v1/radacct".format(host)
+logging.basicConfig(filename='/var/log/radacct.log', level=logging.INFO, format = '%(asctime)s: :%(message)s ')
+payload = {
+'qtype': 'radacct.raddacct.id',
+'query': 'Admin-Reset',
+'oper': '=',
+'page': '1',
+'rp': '1000',
+'sortname': 'radacct.radacct.id',
+'sortorder': 'asc'
+}
+headers = {
+'ixcsoft': 'listar',
+'Authorization': 'Basic {}'.format(base64.b64encode(token).decode('utf-8')),
+'Content-Type': 'application/json'
+}
+
+rad_usuarios = []
+response = requests.post(url, data=payload, headers=headers)
+output = response.json()
+#logging.info('Discover in IXC API')
+for registro in output['registros']:
+	login=registro['username']
+	nasportid=registro['nasportid']
+	nasip=registro['nasipaddress']
+	mac=registro['callingstationid']
+	start=registro['acctstarttime']
+	cause=registro['acctterminatecause']
+	if cause != "":
+	logging.info( "" + login +" com mac" + mac  + " foi desconectado, sob o motivo: " + cause + " a sessao que iniciou no dia " + start + " no NAS " + nasip + "  na porta" + nasportid)
+	rad_usuarios.append({'{#USERNAME}': login, '{#MAC}': mac, '{#CAUSE}': cause})
+	jsonForLLD = {'data': rad_usuarios}
+	else:
+		pass
