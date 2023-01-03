@@ -39,6 +39,7 @@ for registro in output['registros']:
         logging.info( "" + login +" com mac" + mac  + " foi desconectado, sob o motivo: " + cause + " a sessao que iniciou no dia " + start + " no NAS " + nasip + "  na porta" + nasportid)
         rad_usuarios.append({'{#USERNAME}': login, '{#MAC}': mac, '{#CAUSE}': cause})
         jsonForLLD = {'data': rad_usuarios}
+    
     else:
         pass
 print(json.dumps(jsonForLLD))
