@@ -4,8 +4,8 @@ import base64
 import json
 import datetime
 import logging
-host = 'ixc.redeideiatelecom.com.br'
-token = "75:60d3dade43d209091d359668c57ef9714194f78765ac683a502da1ed72245ced".encode('utf-8')
+host = 'HOSTAQUI'
+token = "TOKEAQUI".encode('utf-8')
 url = "https://{}/webservice/v1/radacct".format(host)
 logging.basicConfig(filename='/var/log/radacct.log', level=logging.INFO, format = '%(asctime)s: :%(message)s ')
 payload = {
