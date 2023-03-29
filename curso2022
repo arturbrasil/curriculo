@@ -4,7 +4,7 @@ export NEEDRESTART_MODE=a
 export DEBIAN_FRONTEND=noninteractive
 apt update
 apt install -y ruby screen figlet toilet cowsay lolcat boxes  > /dev/null 2>&1
-toilet -w 100 -f smmono9 Artistas da Monitoração | lolcat
+toilet -w 100 -f smmono9 Monflix | lolcat
 toilet -w 82 -f mini Iniciando... | lolcat
 gem install apt-spy2
 # apt-spy2 fix --commit
@@ -21,8 +21,8 @@ apt install zabbix-server-mysql zabbix-frontend-php  zabbix-agent -y
 apt instll zabbix-sql-scripts zabbix-apache-conf  -y
 
 clear
-toilet -w 82 -f mini Artistas da Monitoração | lolcat
-toilet -w 100 -f smmono9 Artistas da Monitoração | lolcat
+toilet -w 82 -f mini Monflix | lolcat
+toilet -w 100 -f smmono9 Monflix | lolcat
 rm /tmp/finish
 apt install -y mysql-server mysql-client
 apt install -y zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-sql-scripts zabbix-agent 
