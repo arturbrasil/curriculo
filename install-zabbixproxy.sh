@@ -51,6 +51,7 @@ apt install libssh2-1-dev libssh2-1 -y
 apt install libevent-dev -y 
 apt install cpanminus -y
 apt install libpcre* -y
+apt install libcurl4-gnutls-dev -y
 
 # Adciona grupo
 addgroup --system --quiet zabbix
