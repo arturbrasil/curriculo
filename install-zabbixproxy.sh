@@ -1,8 +1,7 @@
 #!/bin/bash
-sudo su
+
 apt update
 apt install lolcat -y
-
 
 # Definindo as variáveis
 professor="Artur Brasil"
