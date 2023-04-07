@@ -63,14 +63,15 @@ mkdir -m u=rwx,g=rwx,o= -p /var/lib/zabbix
 # Alterando dono do diretório
 chown zabbix:zabbix /var/lib/zabbix
 
-mkdir -p /var/log/zabbix-proxy/ 
-touch zabbix_proxy.log
+mkdir -p /var/log/zabbix/ 
+mkdir -p /etc/zabbix/
+touch /var/log/zabbix/zabbix_proxy.log
 mkdir -p /opt/zabbix
- chown zabbix:zabbix /opt/zabbix -R 
-chown zabbix:zabbix /var/log/zabbix-proxy/ -R
+chown zabbix:zabbix /opt/zabbix -R 
+chown zabbix:zabbix /var/log/zabbix/ -R
 mkdir /run/zabbix/
 touch /run/zabbix/zabbix_proxy.pid
-chown zabbix:zabbix  /run/zabbix/ -R
+chown zabbix:zabbix /run/zabbix/ -R
 
 
 
@@ -108,7 +109,7 @@ cat <<EOF > /etc/zabbix/zabbix_proxy.conf
 ProxyMode=$proxymode
 Server=$server
 Hostname=$hostname
-LogFile=/var/log/zabbix-proxy/zabbix_proxy.log
+LogFile=/var/log/zabbix/zabbix_proxy.log
 PidFile=/run/zabbix/zabbix_proxy.pid
 DBName=/opt/zabbix/zabbix-proxy.db 
 #DBUser=zabbix
