@@ -30,7 +30,7 @@ read version
 base_version=$(echo $version | cut -d '.' -f 1,2)
 
 # Pede ao usuário o valor do ProxyMode
-echo -e "\e[32mDigite o valor desejado para ProxyMode (1 ou 0):\e[0m"
+echo -e "\e[32mDigite o valor desejado para ProxyMode ( 1: Passivo ou 0: Ativo):\e[0m"
 read proxymode
 
 # Pede ao usuário o valor do Server
