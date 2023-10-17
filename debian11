@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# Update package repositories
+sudo apt-get -q update
+
+# Install dependencies
+sudo apt-get -q -y install gnupg2 wget
+
+# PostgreSQL 14 installation
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo apt-get -q update
+sudo apt-get -q -y install postgresql-14
+
+# Start PostgreSQL 14
+sudo systemctl enable --now postgresql@14-main
+
+# TimescaleDB installation
+sudo sh -c 'echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -cs) main" > /etc/apt/sources.list.d/timescaledb.list'
+wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | sudo apt-key add -
+sudo apt-get -q update
+sudo apt-get -q -y install timescaledb-2-postgresql-14
+
+# Start TimescaleDB
+sudo systemctl enable --now postgresql@14-main
+
+# Zabbix Server and frontend installation
+sudo apt-get -q update
+sudo apt-get -q -y install zabbix-server-pgsql zabbix-frontend-php php7.4-pgsql zabbix-nginx-conf zabbix-agent
+
+# Configure PostgreSQL for Zabbix
+zcat /usr/share/doc/zabbix-server-pgsql*/create.sql.gz | sudo -u postgres psql zabbix
+
+# Configure Zabbix Server
+sudo sed -i "s/# DBHost=localhost/DBHost=localhost/" /etc/zabbix/zabbix_server.conf
+sudo sed -i "s/# DBPassword=/DBPassword=monflix/" /etc/zabbix/zabbix_server.conf
+
+# Configure Zabbix frontend
+sudo tee /etc/zabbix/web/zabbix.conf.php <<EOL
+<?php
+    \$DB["TYPE"] = "POSTGRESQL";
+    \$DB["SERVER"] = "localhost";
+    \$DB["PORT"] = "5432";
+    \$DB["DATABASE"] = "zabbix";
+    \$DB["USER"] = "zabbix";
+    \$DB["PASSWORD"] = "monflix";
+    \$DB["SCHEMA"] = "";
+    \$ZBX_SERVER = "localhost";
+    \$ZBX_SERVER_PORT = "10051";
+    \$ZBX_SERVER_NAME = "zabbix";
+    \$IMAGE_FORMAT_DEFAULT = IMAGE_FORMAT_PNG;
+EOL
+
+# Configure PHP timezone
+sed -i "s/php_value\[date.timezone\] = .*/php_value\[date.timezone\] = America\/Sao_Paulo/" /etc/zabbix/php-fpm.conf
+
+# Configure Nginx for Zabbix
+sudo sed -i "s/#        listen          80;/        listen 80 default_server;\\n        listen [::]:80 default_server;/" /etc/zabbix/nginx.conf
+sudo sed -i "s/#        server_name     example.com;/        server_name _;/" /etc/zabbix/nginx.conf
+sudo rm /etc/nginx/sites-available/default
+sudo rm /etc/nginx/sites-enabled/default
+sudo rm /etc/nginx/conf.d/zabbix.conf
+sudo ln -s /etc/zabbix/nginx.conf /etc/nginx/sites-available/default
+sudo ln -s /etc/zabbix/nginx.conf /etc/nginx/sites-enabled/default
+
+# Restart services
+sudo systemctl restart postgresql@14-main
+sudo systemctl restart zabbix-server
+sudo systemctl restart php7.4-fpm
+sudo systemctl restart nginx
