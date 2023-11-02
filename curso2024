@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Dependencias DEBIAN
+# Dependencias UBUNTU 22.04.8
 sudo apt-get -q update
 sudo apt-get -q -y install gnupg2
 
@@ -27,8 +27,9 @@ sudo -u postgres createdb -O zabbix -E Unicode -T template0 zabbix 2>/dev/null
 
 # ZABBIX SERVER
 ## Repositório
-wget https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian11_all.deb
-dpkg -i zabbix-release_6.4-1+debian11_all.deb
+wget https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu22.04_all.deb
+ dpkg -i zabbix-release_6.4-1+ubuntu22.04_all.deb
+ apt update
 
 ## Instalação
 sudo apt-get -q update
@@ -46,10 +47,10 @@ sudo systemctl enable --now zabbix-server
 
 # ZABBIX FRONTEND
 ## Instalação
-sudo apt-get -q -y install zabbix-frontend-php php7.4-pgsql zabbix-nginx-conf
+apt install -y zabbix-server-pgsql zabbix-frontend-php php8.1-pgsql zabbix-nginx-conf zabbix-sql-scripts zabbix-agent
 
 ## Configuração do php-fpm
-sed -i "s/php_value\[date.timezone\] = #{PHP_TIMEZONE}/php_value\[date.timezone\] = America\/Sao_Paulo/" /etc/php/7.4/fpm/pool.d/zabbix-php-fpm.conf
+sed -i "s/php_value\[date.timezone\] = #{PHP_TIMEZONE}/php_value\[date.timezone\] = America\/Sao_Paulo/" /etc/php/8.1/fpm/pool.d/zabbix-php-fpm.conf
 
 ## Configuração do setup web do zabbix
 sudo tee /etc/zabbix/web/zabbix.conf.php <<EOL
@@ -93,7 +94,7 @@ sudo ln -s /etc/zabbix/nginx.conf /etc/nginx/sites-available/default
 sudo ln -s /etc/zabbix/nginx.conf /etc/nginx/sites-enabled/default
 
 ## Inicialização
-systemctl enable --now php7.4-fpm
+systemctl enable --now php8.1-fpm
 sleep 5
 systemctl enable --now nginx
 
@@ -108,13 +109,14 @@ systemctl enable --now zabbix-agent
 
 # !!!OPICIONAL!!! HABILITAR O TIMESCALEDB
 # Repositório
-sudo echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -cs) main" > /etc/apt/sources.list.d/timescaledb.list
-wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | sudo apt-key add -
+
+curl -s https://packagecloud.io/install/repositories/timescale/timescaledb/script.deb.sh | sudo bash
 
 # Instalação
 sudo apt-get -q update
-sudo apt-get -q install -y timescaledb-2-postgresql-13
-
+#sudo apt-get install timescaledb-2-oss-postgresql-13=2.12.0~ubuntu22.04
+sudo apt-get install timescaledb-2-postgresql-13
+#sudo apt install timescaledb-2-oss-postgresql-13 timescaledb-2-loader-postgresql-13 -y
 # Parar o Zabbix Server
 systemctl stop zabbix-server
 
@@ -132,6 +134,6 @@ cat /usr/share/zabbix-sql-scripts/postgresql/timescaledb.sql | sudo -u zabbix ps
 # Inicialização do sistema migrado
 systemctl start zabbix-server
 sleep 5
-systemctl restart php7.4-fpm
+systemctl restart php8.1-fpm
 sleep 5
 systemctl restart nginx
